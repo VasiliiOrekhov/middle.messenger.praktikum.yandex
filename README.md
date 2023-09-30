@@ -22,7 +22,7 @@ Install dependencies
   npm
 ```
 
-Start the dev varsion:
+Start the dev version:
 
 ```bash
   npm run start
