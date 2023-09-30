@@ -9,7 +9,9 @@
     "dev": "vite --port 3000",
     "build": "vite build",
     "start": "npm run build  && npm run open && npm run server",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "npm run build  && npm run server",
+    "test2": "npm run build  && npm run server && npm run open"
   },
   "engines": {
     "node": "18.13.0"
