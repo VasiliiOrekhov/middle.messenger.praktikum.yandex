@@ -25,13 +25,13 @@ Install dependencies
 Start the dev version:
 
 ```bash
-  npm run start
+  npm run dev
 ```
 
 Start the optimized (prod) version:
 
 ```bash
-  npm run build
+  npm run start
 ```
 
 ## Demo

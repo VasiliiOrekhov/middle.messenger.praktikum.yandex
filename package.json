@@ -4,10 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "open": "start http://localhost:3000",
+    "server": "node server.js",
     "dev": "vite --port 3000",
-    "build": "vite build",
     "preview": "vite preview",
-    "start": "npm run build && node server.js"
+    "start": "npm run build  && npm run open && npm run server"
   },
   "engines": {
     "node": "18.13.0"
