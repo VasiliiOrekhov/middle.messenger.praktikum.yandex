@@ -31,7 +31,5 @@ export const tmpl = `
         <button type='submit' class='button' name='message'>Отправить</button>
       </form>
     </div>
-    
-    
   </div>
 `;

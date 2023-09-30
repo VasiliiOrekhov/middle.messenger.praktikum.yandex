@@ -8,8 +8,8 @@ import { ChangePassword } from './src/pages/ChangePassword';
 import { Chat } from './src/pages/Chat';
 
 const ROUTES = {
-  '*': NotFound(),
   '/profile': Profile(),
+  '*': NotFound(),
   '/login': Login(),
   '/registration': Singin(),
   '/fix': FixProblem(),
@@ -22,6 +22,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('app');
 
   if (root) {
+    console.log(window.location.pathname);
     const component = ROUTES[window.location.pathname] || NotFound();
     root.innerHTML = component;
   }
