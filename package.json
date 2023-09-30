@@ -8,8 +8,8 @@
     "server": "node server.js",
     "dev": "vite --port 3000",
     "build": "vite build",
-    "preview": "vite preview",
-    "start": "npm run build  && npm run open && npm run server"
+    "start": "npm run build  && npm run open && npm run server",
+    "preview": "vite preview"
   },
   "engines": {
     "node": "18.13.0"
