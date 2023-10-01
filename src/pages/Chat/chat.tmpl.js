@@ -1,5 +1,5 @@
 export const tmpl = `
-  <main class='chatPage'>
+  <div class='chatPage'>
     <div class='ChatListModule'>
       <div class='linkContainer'>
         <a  class="custom-link" href="/profile">Профиль ></a>
@@ -31,5 +31,5 @@ export const tmpl = `
         <button type='submit' class='button' >Отправить</button>
       </form>
     </div>
-  </main>
+  </div>
 `;

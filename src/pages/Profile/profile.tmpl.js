@@ -1,5 +1,5 @@
 export const tmpl = `
-  <main class='profilePage'>
+  <div class='profilePage'>
     <div class='leftsideModule'>
       {{{ChatPageLeftLink}}}
     </div>
@@ -15,5 +15,5 @@ export const tmpl = `
         {{{ChatPageLink}}}
       </div>
     </div>
-  </main>
+  </div>
 `;

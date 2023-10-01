@@ -1,5 +1,5 @@
 export const tmpl = `
-  <main class='changeProfilePage'>
+  <div class='changeProfilePage'>
     <div class='leftsideModule'>
       {{{ChatPageLeftLink}}}
     </div>
@@ -15,5 +15,5 @@ export const tmpl = `
         <button class='submitButton' type='submit' >Сохранить</button>
       </form>
     </div>
-  </main>
+  </div>
 `;
