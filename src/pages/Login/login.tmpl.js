@@ -1,5 +1,5 @@
 export const tmpl = `
-<div  class="loginPage">
+<main  class="loginPage">
   {{{loginForm}}}
-</div>
+</main>
 `;

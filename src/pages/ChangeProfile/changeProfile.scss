@@ -16,6 +16,9 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    .inputImg {
+      display: none;
+    }
     .profileImg {
       width: 130px;
       height: 130px;

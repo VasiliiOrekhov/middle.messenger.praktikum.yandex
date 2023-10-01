@@ -14,17 +14,17 @@ export const registrationInput = [
 ];
 
 export const profileFieldValues = [
-  { fieldName: 'Почта', fieldValue: 'email' },
-  { fieldName: 'Логин', fieldValue: 'login' },
-  { fieldName: 'Имя', fieldValue: 'first_name' },
-  { fieldName: 'Фамилия', fieldValue: 'second_name' },
-  { fieldName: 'Имя в чате', fieldValue: 'display_name' },
-  { fieldName: 'Телефон', fieldValue: 'phone' },
+  { fieldName: 'Почта', fieldValue: 'email', name: 'email' },
+  { fieldName: 'Логин', fieldValue: 'login', name: 'login' },
+  { fieldName: 'Имя', fieldValue: 'first_name', name: 'first_name' },
+  { fieldName: 'Фамилия', fieldValue: 'second_name', name: 'second_name' },
+  { fieldName: 'Имя в чате', fieldValue: 'display_name', name: 'display_name' },
+  { fieldName: 'Телефон', fieldValue: 'phone', name: 'phone' },
 ];
 
 export const changePasswordFieldValues = [
-  { fieldName: 'Старый пароль', fieldValue: 'oldPassword' },
-  { fieldName: 'Новый пароль', fieldValue: 'newPassword' },
+  { fieldName: 'Старый пароль', fieldValue: 'oldPassword', name: 'oldPassword' },
+  { fieldName: 'Новый пароль', fieldValue: 'newPassword', name: 'newPassword' },
   { fieldName: 'Повторите новый пароль', fieldValue: 'newPasswordTwo' },
 ];
 
