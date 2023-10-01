@@ -28,7 +28,7 @@ Start the dev version:
   npm run dev
 ```
 
-Start the optimized (prod) version:
+Start project on express server:
 
 ```bash
   npm run start
