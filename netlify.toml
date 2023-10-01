@@ -7,3 +7,10 @@
 
 [start]
   publish = "dist"
+
+[[redirects]]
+  from = "/login"
+  to = "/"
+  status = 200
+  force = false
+ 
