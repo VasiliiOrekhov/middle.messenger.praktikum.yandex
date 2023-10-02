@@ -1,0 +1,34 @@
+.changeProfileField_container {
+  display: flex;
+  justify-content: space-between;
+  height: 34px;
+  width: 510px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #eaeaea;
+
+  .fieldName {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 13px;
+    color: #1e1e1e;
+  }
+
+  .fieldInput {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 13px;
+    border: none;
+    background: none;
+    outline: none;
+    text-align: end;
+    color: #1e1e1e;
+
+    ::placeholder {
+      color: #999999;
+    }
+  }
+}
