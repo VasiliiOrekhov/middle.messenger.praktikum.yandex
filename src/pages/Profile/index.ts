@@ -3,7 +3,7 @@ import { paths } from '../../components/constants';
 
 import { Link } from '../../components/Link';
 import { ProfileField } from '../../components/ProfileField';
-import { tmpl } from './profile.tmpl';
+import { tmpl } from './profile.tmpl.js';
 import { profileFieldValues } from '../../components/constants';
 import './profile.scss';
 

@@ -11,7 +11,7 @@ export const Login = () => {
       title: 'Вход',
       inputsArr: loginInput,
       buttonText: 'Авторизоваться',
-      link: { path: paths.registration, text: 'Нет аккаунта?' },
+      link: { to: paths.registration, text: 'Нет аккаунта?' },
     }),
   });
 };

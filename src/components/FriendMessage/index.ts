@@ -2,6 +2,8 @@ import Handlebars from 'handlebars';
 import { tmpl } from './friendMessage.tmpl';
 import './friendMessage.scss';
 
-export const FriendMessage = (props) => {
+type FriendMessageProps = { text: string };
+
+export const FriendMessage = (props: FriendMessageProps) => {
   return Handlebars.compile(tmpl)(props);
 };

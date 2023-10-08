@@ -2,6 +2,11 @@ import Handlebars from 'handlebars';
 import { tmpl } from './profileField.tmpl';
 import './profileField.scss';
 
-export const ProfileField = (props) => {
+type ProfileFieldProps = {
+  fieldName: string;
+  fieldValue: string;
+};
+
+export const ProfileField = (props: ProfileFieldProps) => {
   return Handlebars.compile(tmpl)(props);
 };

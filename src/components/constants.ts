@@ -25,7 +25,7 @@ export const profileFieldValues = [
 export const changePasswordFieldValues = [
   { fieldName: 'Старый пароль', fieldValue: 'oldPassword', name: 'oldPassword' },
   { fieldName: 'Новый пароль', fieldValue: 'newPassword', name: 'newPassword' },
-  { fieldName: 'Повторите новый пароль', fieldValue: 'newPasswordTwo' },
+  { fieldName: 'Повторите новый пароль', fieldValue: 'newPasswordTwo', name: 'newPasswordTwo' },
 ];
 
 export const paths = {

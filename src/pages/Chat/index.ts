@@ -12,14 +12,14 @@ const testChatList = [
     name: 'Anna',
     text: 'test message',
     time: '13:58',
-    counter: '5',
+    counter: 5,
   },
   {
     imgSrc: '/vite.svg',
     name: 'Anna',
     text: 'test message',
     time: '13:58',
-    counter: '5',
+    counter: 5,
   },
 ];
 

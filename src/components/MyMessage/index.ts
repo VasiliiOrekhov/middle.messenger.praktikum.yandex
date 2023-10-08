@@ -2,6 +2,10 @@ import Handlebars from 'handlebars';
 import { tmpl } from './myMessage.tmpl';
 import './myMessage.scss';
 
-export const MyMessage = (props) => {
+type MyMessageProps = {
+  text: String;
+};
+
+export const MyMessage = (props: MyMessageProps) => {
   return Handlebars.compile(tmpl)(props);
 };

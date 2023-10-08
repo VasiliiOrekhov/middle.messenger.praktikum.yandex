@@ -11,7 +11,7 @@ export const Singin = () => {
       title: 'Регистрация',
       inputsArr: registrationInput,
       buttonText: 'Зарегистрироваться',
-      link: { path: '/login', text: 'Войти' },
+      link: { to: '/login', text: 'Войти' },
     }),
   });
 };
