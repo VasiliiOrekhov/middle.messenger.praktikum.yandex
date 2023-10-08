@@ -1,0 +1,26 @@
+{
+  "extends": "airbnb",
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "max-len": [1, 100],
+    "linebreak-style": 0,
+    "new-cap": 0,
+    "require-jsdoc": 0,
+    "prefer-rest-params": 1,
+    "guard-for-in": 0,
+    "prefer-promise-reject-errors": 0,
+    "import/prefer-default-export": 0,
+    "import/no-named-as-default": 0,
+    "import/extensions": 0,
+    "import/no-absolute-path": 0,
+    "quotes": ["error", "both"]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".ts"]
+      }
+    }
+  }
+}
