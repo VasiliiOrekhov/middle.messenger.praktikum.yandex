@@ -15,4 +15,13 @@
     color: #1e1e1e;
     outline: none;
   }
+  .errorText {
+    display: none;
+    font-size: 6px;
+    line-height: 6px;
+    color: red;
+  }
+  .errorText_visible {
+    display: block;
+  }
 }

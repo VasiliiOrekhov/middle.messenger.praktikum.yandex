@@ -1,6 +1,35 @@
 export const loginInput = [
-  { type: 'text', placeholder: 'Логин', name: 'login' },
-  { type: 'password', placeholder: 'Пароль', name: 'password' },
+  {
+    type: 'text',
+    placeholder: 'Логин',
+    name: 'login',
+    validationRules: '^(?=.*[a-z])[a-zA-Z0-9_-]{3,20}$',
+    errorText:
+      '3-20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, без спецсимволов',
+    events: {
+      input: function () {
+        this.isValid;
+      },
+      blur: function () {
+        this.showError;
+      },
+    },
+  },
+  {
+    type: 'password',
+    placeholder: 'Пароль',
+    name: 'password',
+    validationRules: '^(?=.*[A-Z])(?=.*[0-9]).{8,40}$',
+    errorText: '8-40 символов, обязательно хотя бы одна заглавная буква и цифра',
+    events: {
+      input: function () {
+        this.isValid;
+      },
+      blur: function () {
+        this.showError;
+      },
+    },
+  },
 ];
 
 export const registrationInput = [

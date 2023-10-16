@@ -1,7 +1,7 @@
 export const tmpl = `
   <div class='profilePage'>
     <div class='leftsideModule'>
-      {{{ChatPageLeftLink}}}
+      {{{chatPageLeftLink}}}
     </div>
     <div class='basicContainer'>
       <img class='profileImg' src={{imgSrc}}/>
@@ -10,9 +10,9 @@ export const tmpl = `
             {{{this}}}
       {{/each}}
       <div class='linkContainer'>
-        {{{ChangeProfilePageLink}}}
-        {{{ChangePasswordPageLink}}}
-        {{{ChatPageLink}}}
+        {{{changeProfilePageLink}}}
+        {{{changePasswordPageLink}}}
+        {{{chatPageLink}}}
       </div>
     </div>
   </div>

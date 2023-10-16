@@ -7,8 +7,8 @@ export const tmpl = `
         {{/each}}
     </form>
     <div class='buttotContainer'>
-        <button type='submit' class='button'>{{buttonText}}</button>
-        {{{PageLink}}}
+        {{{button}}}
+        {{{link}}}
     </div>
 </div>
 `;
