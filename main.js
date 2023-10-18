@@ -11,11 +11,11 @@ const ROUTES = {
   '/profile': new Profile().render(),
   '*': new NotFound().render(),
   '/login': new Login().render(),
-  // '/registration': new Singin().render(),
+  '/registration': new Singin().render(),
   '/fix': new FixProblem().render(),
-  // '/changeprofile': ChangeProfile(),
-  // '/changepassword': ChangePassword(),
-  // '/chat': Chat(),
+  '/changeprofile': new ChangeProfile().render(),
+  '/changepassword': new ChangePassword().render(),
+  '/chat': new Chat().render(),
 };
 
 window.addEventListener('DOMContentLoaded', () => {

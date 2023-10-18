@@ -1,21 +1,20 @@
 import { tmpl } from './input.tmpl';
 import './input.scss';
 import Block from '../../utils/Block';
+import { Validator } from '../../utils/Validator';
 
 export type InputProps = {
   placeholder: string;
   type: string;
   name: string;
-  validationRules: string;
-  errorText: string;
   events: {
     blur?: () => void;
-    input?: () => void;
   };
 };
 
 export class Input extends Block {
   inputParam: { name: string; elementVal: string; isValid: boolean };
+
   constructor(props: InputProps) {
     super('div', props);
     this.inputParam = {
@@ -26,20 +25,10 @@ export class Input extends Block {
   }
 
   get isValid() {
-    const regIn = new RegExp(this.props.validationRules, 'i');
-    const isValid = regIn.test(this.inputParam.elementVal);
+    const { isValid, errorText } = Validator(this.inputParam.name, this.inputParam.elementVal);
     this.setInputIsValid(isValid);
-
+    this.setProps({ errorText: errorText });
     return isValid;
-  }
-  get showError() {
-    const errorText = this.element!.querySelector('.errorText')!;
-    if (this.inputParam.isValid) {
-      errorText.classList.remove('errorText_visible');
-    } else {
-      errorText.classList.add('errorText_visible');
-    }
-    return;
   }
 
   get inputValue() {

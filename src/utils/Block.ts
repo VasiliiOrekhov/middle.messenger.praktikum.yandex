@@ -65,7 +65,6 @@ abstract class Block<P extends Record<string, any> = any> {
   _addEvents() {
     const { events = {} } = this.props as P & { events: Record<string, () => void> };
     Object.keys(events).forEach((eventName) => {
-      console.log(eventName, events[eventName]);
       this._element?.addEventListener(eventName, events[eventName]);
     });
   }

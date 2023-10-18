@@ -14,11 +14,6 @@ export class Login extends Block {
       title: 'Вход',
       inputsArr: loginInput,
       buttonText: 'Авторизоваться',
-      // buttonEvents: {
-      //   click: () => {
-      //     console.log(this);
-      //   },
-      // },
       link: { to: paths.registration, text: 'Нет аккаунта?' },
     });
   }

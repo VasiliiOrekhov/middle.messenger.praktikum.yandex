@@ -19,12 +19,14 @@ export class Form extends Block {
     super('div', props);
   }
   formValid() {
-    console.log(this.children.inputFields);
-    this.children.inputFields.forEach((el) => {
+    const formResult: Record<string, string> = {};
+    (this.children.inputFields as Input[]).forEach((el) => {
       if (!el.inputParam.isValid) {
-        el.showError;
+        el.isValid;
       }
+      formResult[el.inputParam.name] = el.inputParam.elementVal;
     });
+    console.log(formResult);
     return;
   }
 
@@ -32,7 +34,6 @@ export class Form extends Block {
     this.children.link = new Link({ to: this.props.link.to, text: this.props.link.text });
     this.children.button = new Button({
       text: this.props.buttonText,
-      // events: this.props.buttonEvents,
       events: {
         click: () => {
           this.formValid();

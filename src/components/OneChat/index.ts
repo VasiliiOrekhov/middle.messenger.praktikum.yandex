@@ -1,5 +1,5 @@
-import Handlebars from 'handlebars';
 import { tmpl } from './oneChat.tmpl';
+import Block from '../../utils/Block';
 import './oneChat.scss';
 
 type OneChatProps = {
@@ -10,6 +10,12 @@ type OneChatProps = {
   counter: number;
 };
 
-export const OneChat = (props: OneChatProps) => {
-  return Handlebars.compile(tmpl)(props);
-};
+export class OneChat extends Block {
+  constructor(props: OneChatProps) {
+    super('div', props);
+  }
+
+  render() {
+    return this.compile(tmpl, this.props);
+  }
+}

@@ -12,8 +12,9 @@ export const tmpl = `
         {{#each profileFields}}
           {{{this}}}
         {{/each}}
-        <button class='submitButton' type='submit' >Сохранить</button>
+        
       </form>
+      {{{button}}}
     </div>
   </div>
 `;
