@@ -4,7 +4,7 @@ import Block from '../../utils/Block';
 export type ButtonProps = {
   text: string;
   events: {
-    click: () => void;
+    click: (e: MouseEvent) => void;
   };
 };
 

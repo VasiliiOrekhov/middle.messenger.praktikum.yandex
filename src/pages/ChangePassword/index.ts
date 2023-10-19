@@ -17,7 +17,9 @@ export class ChangePassword extends Block {
       if (!el.inputParam.isValid) {
         el.isValid;
       }
-      formResult[el.inputParam.name] = el.inputParam.elementVal;
+      if (el.inputParam.name !== 'newPasswordTwo') {
+        formResult[el.inputParam.name] = el.inputParam.elementVal;
+      }
     });
     console.log(formResult);
     return;
@@ -40,6 +42,6 @@ export class ChangePassword extends Block {
   }
 
   render() {
-    return this.compile(tmpl, {});
+    return this.compile(tmpl, { imgSrc: '/vite.svg' });
   }
 }

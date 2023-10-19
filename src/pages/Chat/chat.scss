@@ -94,7 +94,8 @@
       border-top: 1px solid #eaeaea;
       display: flex;
       align-items: center;
-      .messageInput {
+      div input {
+        background-color: red;
         margin: 0 10px;
         height: 32px;
         width: 100%;
@@ -113,7 +114,7 @@
           color: #999999;
         }
       }
-      .button {
+      button {
         height: 30px;
         width: 100px;
         border: none;

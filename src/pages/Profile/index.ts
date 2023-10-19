@@ -18,7 +18,7 @@ export class Profile extends Block {
       text: 'Изменить данные',
     });
     this.children.changePasswordPageLink = new Link({
-      to: paths.changeprofile,
+      to: paths.changepassword,
       text: 'Изменить пароль',
     });
     this.children.chatPageLink = new Link({ to: paths.chat, text: 'Выйти' });
@@ -26,6 +26,6 @@ export class Profile extends Block {
   }
 
   render() {
-    return this.compile(tmpl, {});
+    return this.compile(tmpl, { imgSrc: '/vite.svg' });
   }
 }

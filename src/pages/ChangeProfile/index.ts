@@ -9,7 +9,7 @@ import { Button } from '../../components/Button';
 
 export class ChangeProfile extends Block {
   constructor() {
-    super('div', { imgSrc: '/vite.svg' });
+    super('div', {});
   }
   formValid() {
     const formResult: Record<string, string> = {};
@@ -40,6 +40,6 @@ export class ChangeProfile extends Block {
   }
 
   render() {
-    return this.compile(tmpl, {});
+    return this.compile(tmpl, { imgSrc: '/vite.svg' });
   }
 }

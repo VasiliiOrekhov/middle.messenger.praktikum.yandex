@@ -4,6 +4,8 @@ import { FriendMessage } from '../../components/FriendMessage';
 import Block from '../../utils/Block';
 import { tmpl } from './chat.tmpl';
 import './chat.scss';
+import { Button } from '../../components/Button';
+import { InputOnly } from '../../components/InputOnly';
 
 const testChatList = [
   {
@@ -29,6 +31,21 @@ export class Chat extends Block {
 
   init() {
     this.children.chatList = testChatList.map((props) => new OneChat(props));
+    this.children.button = new Button({
+      text: 'Отправить',
+      events: {
+        click: (e) => {
+          e.preventDefault();
+          console.log({ message: (this.children.input as InputOnly).inputParam.elementVal });
+        },
+      },
+    });
+    this.children.input = new InputOnly({
+      name: 'message',
+      events: {
+        blur: function () {},
+      },
+    });
     this.children.firstMessage = new MyMessage({ text: 'Сообщение 1' });
     this.children.secondMessage = new FriendMessage({ text: 'Сообщение 2' });
     this.children.thirdMessage = new MyMessage({ text: 'Сообщение 3' });
@@ -36,6 +53,6 @@ export class Chat extends Block {
   }
 
   render() {
-    return this.compile(tmpl, {});
+    return this.compile(tmpl, { selectedChat_imgSrc: '/vite.svg' });
   }
 }

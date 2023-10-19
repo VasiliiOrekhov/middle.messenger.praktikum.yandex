@@ -24,7 +24,9 @@ export class Form extends Block {
       if (!el.inputParam.isValid) {
         el.isValid;
       }
-      formResult[el.inputParam.name] = el.inputParam.elementVal;
+      if (el.inputParam.name !== 'passwordTwo') {
+        formResult[el.inputParam.name] = el.inputParam.elementVal;
+      }
     });
     console.log(formResult);
     return;

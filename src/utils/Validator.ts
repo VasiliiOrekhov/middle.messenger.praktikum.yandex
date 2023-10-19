@@ -49,6 +49,10 @@ function valueForReg(inputName: string): { error: string; rules: string } {
       return { error: errorText.password, rules: validRules.password };
     case 'oldPassword':
       return { error: errorText.password, rules: validRules.password };
+    case 'oldPasswordTwo':
+      return { error: errorText.password, rules: validRules.password };
+    case 'newPasswordTwo':
+      return { error: errorText.password, rules: validRules.password };
     case 'newPassword':
       return { error: errorText.password, rules: validRules.password };
     case 'display_name':

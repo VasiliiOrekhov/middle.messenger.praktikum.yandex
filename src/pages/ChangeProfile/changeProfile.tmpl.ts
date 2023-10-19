@@ -12,7 +12,6 @@ export const tmpl = `
         {{#each profileFields}}
           {{{this}}}
         {{/each}}
-        
       </form>
       {{{button}}}
     </div>

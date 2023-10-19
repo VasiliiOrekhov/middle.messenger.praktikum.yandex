@@ -27,8 +27,8 @@ export const tmpl = `
       </div>
       <form class='footer'>
         <input class='fileInput' type='file'>
-        <input class='messageInput' type='text'name='message'>
-        <button type='submit' class='button'>Отправить</button>
+        {{{input}}}
+        {{{button}}}
       </form>
     </div>
   </div>
