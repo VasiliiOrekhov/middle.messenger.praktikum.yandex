@@ -3,8 +3,8 @@ import { nanoid } from 'nanoid';
 
 import { EventBus } from './EventBus';
 
-//убрать any
-//сделать P дженериком
+// убрать any
+// сделать P дженериком
 // Нельзя создавать экземпляр данного класса
 abstract class Block<P extends Record<string, any> = any> {
   static EVENTS = {
@@ -15,10 +15,16 @@ abstract class Block<P extends Record<string, any> = any> {
   } as const;
 
   public id = nanoid(6);
+
   protected props: P;
+
+  /* eslint-disable-next-line no-use-before-define */
   public children: Record<string, Block | Block[]>;
+
   private eventBus: () => EventBus;
+
   private _element: HTMLElement | null = null;
+
   private _meta: { tagName: string; props: P };
 
   /** JSDoc
@@ -142,7 +148,7 @@ abstract class Block<P extends Record<string, any> = any> {
       if (Array.isArray(component)) {
         contextAndStubs[name] = component.map((child) => `<div data-id="${child.id}"></div>`);
       } else {
-        contextAndStubs[name] = `<div data-id="${component.id}"></div>`; //---------------------------
+        contextAndStubs[name] = `<div data-id="${component.id}"></div>`;
       }
     });
 
@@ -191,7 +197,7 @@ abstract class Block<P extends Record<string, any> = any> {
       },
       set(target, prop: string, value) {
         const oldTarget = { ...target };
-
+        /* eslint-disable-next-line no-param-reassign */
         target[prop as keyof P] = value;
 
         self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);

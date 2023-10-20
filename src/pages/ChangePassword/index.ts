@@ -1,8 +1,8 @@
-import { paths } from '../../components/constants';
+import { paths, changePasswordFieldValues } from '../../components/constants';
 import { Link } from '../../components/Link';
 import { ChangeProfileField } from '../../components/ChangeProfileField';
 import { tmpl } from '../ChangeProfile/changeProfile.tmpl';
-import { changePasswordFieldValues } from '../../components/constants';
+
 import '../ChangeProfile/changeProfile.scss';
 import Block from '../../utils/Block';
 import { Button } from '../../components/Button';
@@ -11,6 +11,7 @@ export class ChangePassword extends Block {
   constructor() {
     super('div', { imgSrc: '/vite.svg' });
   }
+
   formValid() {
     const formResult: Record<string, string> = {};
     (this.children.profileFields as ChangeProfileField[]).forEach((el) => {
@@ -22,7 +23,6 @@ export class ChangePassword extends Block {
       }
     });
     console.log(formResult);
-    return;
   }
 
   init() {
@@ -36,9 +36,9 @@ export class ChangePassword extends Block {
     });
 
     (this.children.ChatPageLeftLink = new Link({ to: paths.profile, text: '<' })),
-      (this.children.profileFields = changePasswordFieldValues.map(
-        (field) => new ChangeProfileField(field)
-      ));
+    (this.children.profileFields = changePasswordFieldValues.map(
+      (field) => new ChangeProfileField(field),
+    ));
   }
 
   render() {

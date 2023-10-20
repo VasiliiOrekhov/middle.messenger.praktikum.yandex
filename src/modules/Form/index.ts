@@ -18,18 +18,18 @@ export class Form extends Block {
   constructor(props: FormProps) {
     super('div', props);
   }
+
   formValid() {
     const formResult: Record<string, string> = {};
     (this.children.inputFields as Input[]).forEach((el) => {
       if (!el.inputParam.isValid) {
-        el.isValid;
+        el.isValid();
       }
       if (el.inputParam.name !== 'passwordTwo') {
         formResult[el.inputParam.name] = el.inputParam.elementVal;
       }
     });
     console.log(formResult);
-    return;
   }
 
   init() {
@@ -38,13 +38,14 @@ export class Form extends Block {
       text: this.props.buttonText,
       events: {
         click: () => {
+          // console.log(this);
           this.formValid();
         },
       },
     });
 
     this.children.inputFields = this.props.inputsArr.map(
-      (inputProp: InputProps) => new Input(inputProp)
+      (inputProp: InputProps) => new Input(inputProp),
     );
   }
 

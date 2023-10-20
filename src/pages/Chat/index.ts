@@ -43,7 +43,7 @@ export class Chat extends Block {
     this.children.input = new InputOnly({
       name: 'message',
       events: {
-        blur: function () {},
+        blur() {},
       },
     });
     this.children.firstMessage = new MyMessage({ text: 'Сообщение 1' });

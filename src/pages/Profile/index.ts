@@ -1,8 +1,8 @@
-import { paths } from '../../components/constants';
+import { paths, profileFieldValues } from '../../components/constants';
 import { Link } from '../../components/Link';
 import { ProfileField } from '../../components/ProfileField';
 import { tmpl } from './profile.tmpl.js';
-import { profileFieldValues } from '../../components/constants';
+
 import './profile.scss';
 import Block from '../../utils/Block';
 

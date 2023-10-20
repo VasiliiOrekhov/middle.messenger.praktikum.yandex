@@ -24,19 +24,22 @@ export class Input extends Block {
     };
   }
 
-  get isValid() {
+  isValid() {
     const { isValid, errorText } = Validator(this.inputParam.name, this.inputParam.elementVal);
     this.setInputIsValid(isValid);
-    this.setProps({ errorText: errorText });
-    return isValid;
+    this.setProps({ errorText });
+    console.log('val');
+    // return isValid;
   }
 
   get inputValue() {
     return this.inputParam;
   }
+
   setInputVal(val: string) {
     this.inputParam.elementVal = val;
   }
+
   setInputIsValid(param: boolean) {
     this.inputParam.isValid = param;
   }

@@ -1,9 +1,13 @@
 import { Input } from './Input';
 
 const events = {
-  blur: function (this: Input) {
-    this.isValid;
+  blur(this: Input) {
+    console.log(this);
+    (this! as Input).isValid();
   },
+  // blur: function () {
+  //   this.isValid();
+  // },
 };
 
 export const loginInput = [
@@ -28,12 +32,42 @@ export const registrationInput = [
     name: 'email',
     events,
   },
-  { type: 'text', placeholder: 'Логин', name: 'login', events },
-  { type: 'text', placeholder: 'Имя', name: 'first_name', events },
-  { type: 'text', placeholder: 'Фамилия', name: 'second_name', events },
-  { type: 'tel', placeholder: 'Телефон', name: 'phone', events },
-  { type: 'password', placeholder: 'Пароль', name: 'password', events },
-  { type: 'password', placeholder: 'Пароль (еще раз)', name: 'passwordTwo', events },
+  {
+    type: 'text',
+    placeholder: 'Логин',
+    name: 'login',
+    events,
+  },
+  {
+    type: 'text',
+    placeholder: 'Имя',
+    name: 'first_name',
+    events,
+  },
+  {
+    type: 'text',
+    placeholder: 'Фамилия',
+    name: 'second_name',
+    events,
+  },
+  {
+    type: 'tel',
+    placeholder: 'Телефон',
+    name: 'phone',
+    events,
+  },
+  {
+    type: 'password',
+    placeholder: 'Пароль',
+    name: 'password',
+    events,
+  },
+  {
+    type: 'password',
+    placeholder: 'Пароль (еще раз)',
+    name: 'passwordTwo',
+    events,
+  },
 ];
 
 export const profileFieldValues = [

@@ -1,35 +1,26 @@
-enum validRules {
-  first_name = '^[А-ЯA-Z][а-яА-ЯёЁa-zA-Z-]+$',
-  second_name = '^[А-ЯA-Z][а-яА-ЯёЁa-zA-Z-]+$',
-  login = '^(?=.*[a-z])[a-zA-Z0-9_-]{3,20}$',
-  email = '^[a-z0-9._%$#+-]+@[a-z0-9]*[a-z]+.[a-z]+$',
-  password = '^(?=.*[A-Z])(?=.*[0-9]).{8,40}$',
-  phone = '^[0-9+][0-9]{9,14}$',
-  display_name = '^[А-ЯA-Z][а-яА-ЯёЁa-zA-Z-]+$',
-  message = '[^s]',
-  default = '[^s]',
-}
+const validRules = {
+  first_name: '^[А-ЯA-Z][а-яА-ЯёЁa-zA-Z-]+$',
+  second_name: '^[А-ЯA-Z][а-яА-ЯёЁa-zA-Z-]+$',
+  login: '^(?=.*[a-z])[a-zA-Z0-9_-]{3,20}$',
+  email: '^[a-z0-9._%$#+-]+@[a-z0-9]*[a-z]+.[a-z]+$',
+  password: '^(?=.*[A-Z])(?=.*[0-9]).{8,40}$',
+  phone: '^[0-9+][0-9]{9,14}$',
+  display_name: '^[А-ЯA-Z][а-яА-ЯёЁa-zA-Z-]+$',
+  message: '[^s]',
+  default: '[^s]',
+};
 
-enum errorText {
-  name = 'Первая буква должна быть заглавной, без пробелов и без цифр, нет спецсимволов',
-  login = '3-20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, без спецсимволов',
-  email = 'Латиница, может включать цифры и спецсимволы',
-  password = '8-40 символов, обязательно хотя бы одна заглавная буква и цифра',
-  phone = '10-15 символов, состоит из цифр, может начинается с плюса',
-  displayName = 'Первая буква должна быть заглавной, без пробелов и без цифр, нет спецсимволов',
-  message = 'Не должно быть пустым',
-  default = 'Не должно быть пустым',
-}
-
-export function Validator(
-  inputName: string,
-  inputValue: string
-): { isValid: boolean; errorText: string } {
-  const { error, rules } = valueForReg(inputName);
-  const regIn = new RegExp(rules, 'i');
-  const isValid = regIn.test(inputValue);
-  return { isValid: isValid, errorText: isValid ? '' : error };
-}
+const errorText = {
+  name: 'Первая буква должна быть заглавной, без пробелов и без цифр, нет спецсимволов',
+  login:
+    '3-20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, без спецсимволов',
+  email: 'Латиница, может включать цифры и спецсимволы',
+  password: '8-40 символов, обязательно хотя бы одна заглавная буква и цифра',
+  phone: '10-15 символов, состоит из цифр, может начинается с плюса',
+  displayName: 'Первая буква должна быть заглавной, без пробелов и без цифр, нет спецсимволов',
+  message: 'Не должно быть пустым',
+  default: 'Не должно быть пустым',
+};
 
 function valueForReg(inputName: string): { error: string; rules: string } {
   switch (inputName) {
@@ -62,4 +53,14 @@ function valueForReg(inputName: string): { error: string; rules: string } {
     default:
       return { error: errorText.default, rules: validRules.default };
   }
+}
+
+export function Validator(
+  inputName: string,
+  inputValue: string,
+): { isValid: boolean; errorText: string } {
+  const { error, rules } = valueForReg(inputName);
+  const regIn = new RegExp(rules, 'i');
+  const isValid = regIn.test(inputValue);
+  return { isValid, errorText: isValid ? '' : error };
 }

@@ -1,18 +1,7 @@
 import Block from '../../utils/Block';
-import Handlebars from 'handlebars';
 import { tmpl } from './changeProfileField.tmpl';
 import './changeProfileField.scss';
 import { Validator } from '../../utils/Validator';
-
-// type ChangeProfileFieldProps = {
-//   fieldName: string;
-//   fieldValue: string;
-//   name: string;
-// };
-
-export const ChangeProfileField2 = (props: ChangeProfileFieldProps) => {
-  return Handlebars.compile(tmpl)(props);
-};
 
 type ChangeProfileFieldProps = {
   fieldName: string;
@@ -22,15 +11,6 @@ type ChangeProfileFieldProps = {
     blur?: () => void;
   };
 };
-
-// export type InputProps = {
-//   placeholder: string;
-//   type: string;
-//   name: string;
-//   events: {
-//     blur?: () => void;
-//   };
-// };
 
 export class ChangeProfileField extends Block {
   inputParam: { name: string; elementVal: string; isValid: boolean };
@@ -47,16 +27,18 @@ export class ChangeProfileField extends Block {
   get isValid() {
     const { isValid, errorText } = Validator(this.inputParam.name, this.inputParam.elementVal);
     this.setInputIsValid(isValid);
-    this.setProps({ errorText: errorText });
+    this.setProps({ errorText });
     return isValid;
   }
 
   get inputValue() {
     return this.inputParam;
   }
+
   setInputVal(val: string) {
     this.inputParam.elementVal = val;
   }
+
   setInputIsValid(param: boolean) {
     this.inputParam.isValid = param;
   }

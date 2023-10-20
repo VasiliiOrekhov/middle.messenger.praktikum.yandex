@@ -22,6 +22,7 @@ export class InputOnly extends Block {
   get inputValue() {
     return this.inputParam;
   }
+
   setInputVal(val: string) {
     this.inputParam.elementVal = val;
   }
@@ -33,7 +34,7 @@ export class InputOnly extends Block {
         (e) => {
           this.setInputVal((e.target as HTMLInputElement).value);
           this.props.events[eventName].apply(this);
-        }
+        },
       );
     });
   }

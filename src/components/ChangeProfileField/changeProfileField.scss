@@ -7,19 +7,19 @@
   border-bottom: 1px solid #eaeaea;
 
   .fieldName {
-    font-family: 'Inter';
     font-style: normal;
     font-weight: 500;
     font-size: 13px;
     line-height: 13px;
     color: #1e1e1e;
   }
+
   .rightContainer {
     position: relative;
+
     .fieldInput {
       position: absolute;
       right: 0;
-      font-family: 'Inter';
       font-style: normal;
       font-weight: 500;
       font-size: 13px;
@@ -31,9 +31,10 @@
       color: #1e1e1e;
 
       ::placeholder {
-        color: #999999;
+        color: #999;
       }
     }
+
     .errorText {
       position: absolute;
       right: 0;
