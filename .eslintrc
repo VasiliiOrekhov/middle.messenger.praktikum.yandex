@@ -21,7 +21,7 @@
     "class-methods-use-this": "off",
     "no-unused-vars": ["error", { "args": "none" }],
     "default-param-last": "off",
-    "linebreak-style": ["error", "windows"],
+    "linebreak-style": ["error", "unix"],
     "prettier/prettier": [
       1,
       {
