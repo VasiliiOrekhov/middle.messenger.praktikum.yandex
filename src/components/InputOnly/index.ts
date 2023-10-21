@@ -28,14 +28,11 @@ export class InputOnly extends Block {
   }
 
   _addEvents() {
-    Object.keys(this.props.events).forEach((eventName) => {
-      (this.element!.querySelector('.inputField') as HTMLInputElement)!.addEventListener(
-        eventName,
-        (e) => {
-          this.setInputVal((e.target as HTMLInputElement).value);
-          this.props.events[eventName].apply(this);
-        },
-      );
+    Object.keys(this.props.events).forEach(eventName => {
+      (this.element!.querySelector('.inputField') as HTMLInputElement)!.addEventListener(eventName, e => {
+        this.setInputVal((e.target as HTMLInputElement).value);
+        this.props.events[eventName].apply(this);
+      });
     });
   }
 

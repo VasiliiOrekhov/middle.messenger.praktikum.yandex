@@ -1,7 +1,6 @@
 import Block from '../../utils/Block';
 import { tmpl } from './changeProfileField.tmpl';
 import './changeProfileField.scss';
-import { Validator } from '../../utils/Validator';
 
 type ChangeProfileFieldProps = {
   fieldName: string;
@@ -24,13 +23,6 @@ export class ChangeProfileField extends Block {
     };
   }
 
-  get isValid() {
-    const { isValid, errorText } = Validator(this.inputParam.name, this.inputParam.elementVal);
-    this.setInputIsValid(isValid);
-    this.setProps({ errorText });
-    return isValid;
-  }
-
   get inputValue() {
     return this.inputParam;
   }
@@ -44,8 +36,8 @@ export class ChangeProfileField extends Block {
   }
 
   _addEvents() {
-    Object.keys(this.props.events).forEach((eventName) => {
-      this.element!.querySelector('input')!.addEventListener(eventName, (e) => {
+    Object.keys(this.props.events).forEach(eventName => {
+      this.element!.querySelector('input')!.addEventListener(eventName, e => {
         this.setInputVal((e.target as HTMLInputElement).value);
         this.props.events[eventName].apply(this);
       });

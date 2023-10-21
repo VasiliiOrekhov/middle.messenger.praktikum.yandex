@@ -6,6 +6,7 @@ import type { LinkProps } from '../../components/Link';
 import './form.scss';
 import Block from '../../utils/Block';
 import { Button } from '../../components/Button';
+import { validator } from '../../utils/validator';
 
 type FormProps = {
   title: string;
@@ -21,9 +22,11 @@ export class Form extends Block {
 
   formValid() {
     const formResult: Record<string, string> = {};
-    (this.children.inputFields as Input[]).forEach((el) => {
+    (this.children.inputFields as Input[]).forEach(el => {
       if (!el.inputParam.isValid) {
-        el.isValid();
+        const { errorText } = validator(el.inputParam.name, el.inputParam.elementVal);
+        const copyEl = el;
+        copyEl.element!.querySelector('.errorText')!.textContent = errorText;
       }
       if (el.inputParam.name !== 'passwordTwo') {
         formResult[el.inputParam.name] = el.inputParam.elementVal;
@@ -38,15 +41,12 @@ export class Form extends Block {
       text: this.props.buttonText,
       events: {
         click: () => {
-          // console.log(this);
           this.formValid();
         },
       },
     });
 
-    this.children.inputFields = this.props.inputsArr.map(
-      (inputProp: InputProps) => new Input(inputProp),
-    );
+    this.children.inputFields = this.props.inputsArr.map((inputProp: InputProps) => new Input(inputProp));
   }
 
   render() {

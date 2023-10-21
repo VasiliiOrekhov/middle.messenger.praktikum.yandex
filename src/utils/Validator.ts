@@ -12,8 +12,7 @@ const validRules = {
 
 const errorText = {
   name: 'Первая буква должна быть заглавной, без пробелов и без цифр, нет спецсимволов',
-  login:
-    '3-20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, без спецсимволов',
+  login: '3-20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, без спецсимволов',
   email: 'Латиница, может включать цифры и спецсимволы',
   password: '8-40 символов, обязательно хотя бы одна заглавная буква и цифра',
   phone: '10-15 символов, состоит из цифр, может начинается с плюса',
@@ -55,10 +54,7 @@ function valueForReg(inputName: string): { error: string; rules: string } {
   }
 }
 
-export function Validator(
-  inputName: string,
-  inputValue: string,
-): { isValid: boolean; errorText: string } {
+export function validator(inputName: string, inputValue: string): { isValid: boolean; errorText: string } {
   const { error, rules } = valueForReg(inputName);
   const regIn = new RegExp(rules, 'i');
   const isValid = regIn.test(inputValue);

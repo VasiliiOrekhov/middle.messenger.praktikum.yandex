@@ -12,7 +12,7 @@ export class Profile extends Block {
   }
 
   init() {
-    this.children.profileFields = profileFieldValues.map((field) => new ProfileField(field));
+    this.children.profileFields = profileFieldValues.map(field => new ProfileField(field));
     this.children.changeProfilePageLink = new Link({
       to: paths.changeprofile,
       text: 'Изменить данные',

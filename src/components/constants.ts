@@ -1,13 +1,13 @@
+import { validator } from '../utils/validator';
 import { Input } from './Input';
 
 const events = {
-  blur(this: Input) {
-    console.log(this);
-    (this! as Input).isValid();
+  blur() {
+    const inputInstance = this as unknown as Input;
+    const { isValid, errorText } = validator(inputInstance.inputParam.name, inputInstance.inputParam.elementVal);
+    inputInstance.element!.querySelector('.errorText')!.textContent = errorText;
+    inputInstance.setInputIsValid(isValid);
   },
-  // blur: function () {
-  //   this.isValid();
-  // },
 };
 
 export const loginInput = [

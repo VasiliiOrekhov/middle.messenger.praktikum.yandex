@@ -4,7 +4,7 @@ import Block from '../../utils/Block';
 import './myMessage.scss';
 
 type MyMessageProps = {
-  text: String;
+  text: string;
 };
 
 export class MyMessage extends Block {

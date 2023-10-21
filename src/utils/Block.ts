@@ -3,8 +3,6 @@ import { nanoid } from 'nanoid';
 
 import { EventBus } from './EventBus';
 
-// убрать any
-// сделать P дженериком
 // Нельзя создавать экземпляр данного класса
 abstract class Block<P extends Record<string, any> = any> {
   static EVENTS = {
@@ -70,8 +68,15 @@ abstract class Block<P extends Record<string, any> = any> {
 
   _addEvents() {
     const { events = {} } = this.props as P & { events: Record<string, () => void> };
-    Object.keys(events).forEach((eventName) => {
+    Object.keys(events).forEach(eventName => {
       this._element?.addEventListener(eventName, events[eventName]);
+    });
+  }
+
+  _removeEvents() {
+    const { events = {} } = this.props as P & { events: Record<string, () => void> };
+    Object.keys(events).forEach(eventName => {
+      this._element?.removeEventListener(eventName, events[eventName]);
     });
   }
 
@@ -120,11 +125,13 @@ abstract class Block<P extends Record<string, any> = any> {
   }
 
   setProps = (nextProps: P) => {
+    // TODO СРАВНЕНИЕ ПРОПС
     if (!nextProps) {
       return;
     }
+    const newProps = { ...this.props, ...nextProps };
 
-    Object.assign(this.props, nextProps);
+    Object.assign(this.props, newProps);
   };
 
   get element() {
@@ -133,6 +140,8 @@ abstract class Block<P extends Record<string, any> = any> {
 
   private _render() {
     const fragment = this.render();
+
+    this._removeEvents();
 
     this._element!.innerHTML = '';
 
@@ -146,7 +155,7 @@ abstract class Block<P extends Record<string, any> = any> {
 
     Object.entries(this.children).forEach(([name, component]) => {
       if (Array.isArray(component)) {
-        contextAndStubs[name] = component.map((child) => `<div data-id="${child.id}"></div>`);
+        contextAndStubs[name] = component.map(child => `<div data-id="${child.id}"></div>`);
       } else {
         contextAndStubs[name] = `<div data-id="${component.id}"></div>`;
       }
@@ -168,7 +177,7 @@ abstract class Block<P extends Record<string, any> = any> {
       stub.replaceWith(component.getContent()!);
     };
 
-    Object.entries(this.children).forEach(([_, component]) => {
+    Object.entries(this.children).forEach(([, component]) => {
       if (Array.isArray(component)) {
         component.forEach(stubReplace);
       } else {

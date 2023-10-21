@@ -30,11 +30,11 @@ export class Chat extends Block {
   }
 
   init() {
-    this.children.chatList = testChatList.map((props) => new OneChat(props));
+    this.children.chatList = testChatList.map(props => new OneChat(props));
     this.children.button = new Button({
       text: 'Отправить',
       events: {
-        click: (e) => {
+        click: e => {
           e.preventDefault();
           console.log({ message: (this.children.input as InputOnly).inputParam.elementVal });
         },
