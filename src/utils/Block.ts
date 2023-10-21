@@ -4,6 +4,7 @@ import { nanoid } from 'nanoid';
 import { EventBus } from './EventBus';
 
 // Нельзя создавать экземпляр данного класса
+// eslint-disable-next-line
 abstract class Block<P extends Record<string, any> = any> {
   static EVENTS = {
     INIT: 'init',
@@ -150,6 +151,7 @@ abstract class Block<P extends Record<string, any> = any> {
     this._addEvents();
   }
 
+  // eslint-disable-next-line
   protected compile(template: string, context: any) {
     const contextAndStubs = { ...context };
 
@@ -197,6 +199,7 @@ abstract class Block<P extends Record<string, any> = any> {
   }
 
   _makePropsProxy(props: P) {
+    // eslint-disable-next-line
     const self = this;
 
     return new Proxy(props, {

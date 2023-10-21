@@ -1,8 +1,10 @@
+// eslint-disable-next-line
 type Handler<A extends any[] = unknown[]> = (...args: A) => void;
 type MapInterface<P> = P[keyof P];
 
 export class EventBus<
   E extends Record<string, string> = Record<string, string>,
+  // eslint-disable-next-line
   Args extends Record<MapInterface<E>, any[]> = Record<string, any[]>,
 > {
   private readonly listeners: {

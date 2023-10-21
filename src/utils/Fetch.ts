@@ -1,7 +1,9 @@
 type Options = {
+  // eslint-disable-next-line
   data?: any;
   timeout?: number;
   method: string;
+  // eslint-disable-next-line
   headers?: any;
 };
 
