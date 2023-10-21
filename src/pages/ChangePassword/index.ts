@@ -5,7 +5,7 @@ import { tmpl } from '../ChangeProfile/changeProfile.tmpl';
 import '../ChangeProfile/changeProfile.scss';
 import Block from '../../utils/Block';
 import { Button } from '../../components/Button';
-import { validator } from '../../utils/validator';
+import { validator } from '../../utils/Validator';
 
 export class ChangePassword extends Block {
   constructor() {

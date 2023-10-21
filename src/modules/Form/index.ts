@@ -6,7 +6,7 @@ import type { LinkProps } from '../../components/Link';
 import './form.scss';
 import Block from '../../utils/Block';
 import { Button } from '../../components/Button';
-import { validator } from '../../utils/validator';
+import { validator } from '../../utils/Validator';
 
 type FormProps = {
   title: string;

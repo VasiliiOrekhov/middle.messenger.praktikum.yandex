@@ -1,4 +1,4 @@
-import { validator } from '../utils/validator';
+import { validator } from '../utils/Validator';
 import { Input } from './Input';
 
 const events = {
