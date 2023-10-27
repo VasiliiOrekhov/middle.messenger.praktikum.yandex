@@ -8,21 +8,21 @@ import { ChangePassword } from './src/pages/ChangePassword';
 import { Chat } from './src/pages/Chat';
 
 const ROUTES = {
-  '/profile': Profile(),
-  '*': NotFound(),
-  '/login': Login(),
-  '/registration': Singin(),
-  '/fix': FixProblem(),
-  '/changeprofile': ChangeProfile(),
-  '/changepassword': ChangePassword(),
-  '/chat': Chat(),
+  '/profile': new Profile().render(),
+  '*': new NotFound().render(),
+  '/login': new Login().render(),
+  '/registration': new Singin().render(),
+  '/fix': new FixProblem().render(),
+  '/changeprofile': new ChangeProfile().render(),
+  '/changepassword': new ChangePassword().render(),
+  '/chat': new Chat().render(),
 };
 
 window.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('app');
 
   if (root) {
-    const component = ROUTES[window.location.pathname] || NotFound();
-    root.innerHTML = component;
+    const component = ROUTES[window.location.pathname] || ROUTES['*'];
+    root.append(component);
   }
 });
