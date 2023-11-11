@@ -44,10 +44,9 @@ class AuthController {
     try {
       const user = await this.api.getUser();
       store.set('user', user);
-      // setTimeout(() => store.set('user', user), 3000);
+      // setTimeout(() => store.set('user', user), 0);
     } catch (error) {
       console.log(error);
-      // throw error;
     }
   }
 }

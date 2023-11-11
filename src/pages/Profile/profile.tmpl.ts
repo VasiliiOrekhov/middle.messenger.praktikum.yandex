@@ -6,7 +6,6 @@ export const tmpl = `
     <div class='basicContainer'>
       <img class='profileImg' src={{imgSrc}}/>
       <div class='profileName'>{{profileName}}</div>
-      {{email}}
       {{#each profileFields}}
             {{{this}}}
       {{/each}}

@@ -6,17 +6,12 @@ import './profile.scss';
 import Block from '../../utils/Block';
 import { Button } from '../../components/Button';
 import AuthController from '../../controllers/AuthController';
-import { State, store, withStore } from '../../utils/Store';
+import { State, withStore } from '../../utils/Store';
 import Router from '../../utils/Router';
-import { IUser } from '../../api/AuthApi';
 
 export class BaseProfile extends Block {
-  constructor() {
-    super('div', {});
-  }
-
-  componentDidMount(): void {
-    AuthController.fetchUser();
+  async componentDidMount(): Promise<void> {
+    await AuthController.fetchUser();
   }
 
   init() {
@@ -71,7 +66,7 @@ export class BaseProfile extends Block {
   }
 
   render() {
-    return this.compile(tmpl, { ...this.props, imgSrc: '/vite.svg' });
+    return this.compile(tmpl, { imgSrc: '/vite.svg' });
   }
 }
 

@@ -40,7 +40,8 @@ export class BaseChat extends Block {
   }
 
   init() {
-    this.children.chatList = store.getState().chats?.map(props => new OneChat(props));
+    console.log(store.getState());
+    this.children.chatList = [].map(props => new OneChat(props));
     this.children.createChatButton = new Button({
       text: 'Создать чат',
       events: {
@@ -68,26 +69,26 @@ export class BaseChat extends Block {
         },
       },
     });
-    this.children.input = new InputOnly({
-      name: 'message',
-      events: {
-        blur() {},
-      },
-    });
+    // this.children.input = new InputOnly({
+    //   name: 'message',
+    //   events: {
+    //     blur() {},
+    //   },
+    // });
     this.children.firstMessage = new MyMessage({ text: 'Сообщение 1' });
     this.children.secondMessage = new FriendMessage({ text: 'Сообщение 2' });
     this.children.thirdMessage = new MyMessage({ text: 'Сообщение 3' });
     this.children.fourMessage = new FriendMessage({ text: 'Сообщение 4' });
   }
 
-  // componentDidUpdate(_oldProps: IGetChat[], _newProps: IGetChat[]): boolean {
-  //   this.children.chats = this.createChats(_newProps);
-  //   this.children.chatList = store.getState().chats!.map(props => new OneChat(props))
-  //   return true;
-  // }
+  protected componentDidUpdate(): boolean {
+    this.children.chatList = this.props.map(props => new OneChat(props));
+
+    return true;
+  }
 
   render() {
-    return this.compile(tmpl, { selectedChat_imgSrc: '/vite.svg' });
+    return this.compile(tmpl, { ...this.props, selectedChat_imgSrc: '/vite.svg' });
   }
 }
 

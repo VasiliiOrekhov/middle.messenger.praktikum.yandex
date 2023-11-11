@@ -12,7 +12,7 @@ type ErrorProps = {
 
 export class Error extends Block {
   constructor(props: ErrorProps) {
-    super('div', props);
+    super(props);
   }
 
   init() {

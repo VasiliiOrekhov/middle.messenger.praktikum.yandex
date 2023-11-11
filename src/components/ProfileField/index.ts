@@ -9,7 +9,7 @@ type ProfileFieldProps = {
 
 export class ProfileField extends Block {
   constructor(props: ProfileFieldProps) {
-    super('div', props);
+    super(props);
   }
 
   render() {

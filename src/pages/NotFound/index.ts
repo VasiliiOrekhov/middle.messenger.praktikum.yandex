@@ -4,9 +4,9 @@ import { Error } from '../../modules/Error';
 import Block from '../../utils/Block';
 
 export class NotFound extends Block {
-  constructor() {
-    super('div', {});
-  }
+  // constructor() {
+  //   super('div', {});
+  // }
 
   init() {
     this.children.error = new Error({

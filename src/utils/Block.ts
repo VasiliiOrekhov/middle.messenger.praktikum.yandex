@@ -24,23 +24,16 @@ class Block<P extends Record<string, any> = any> {
 
   private _element: HTMLElement | null = null;
 
-  private _meta: { tagName: string; props: P };
-
   /** JSDoc
    * @param {string} tagName
    * @param {Object} props
    *
    * @returns {void}
    */
-  constructor(tagName = 'div', propsWithChildren: P) {
+  constructor(propsWithChildren: P) {
     const eventBus = new EventBus();
 
     const { props, children } = this._getChildrenAndProps(propsWithChildren);
-
-    this._meta = {
-      tagName,
-      props: props as P,
-    };
 
     this.children = children;
     this.props = this._makePropsProxy(props);
@@ -89,13 +82,14 @@ class Block<P extends Record<string, any> = any> {
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
-  _createResources() {
-    const { tagName } = this._meta;
-    this._element = this._createDocumentElement(tagName);
-  }
+  // _createResources() {
+  //   const { tagName } = this._meta;
+  //   this._element = this._createDocumentElement(tagName);
+  // }
 
   private _init() {
-    this._createResources();
+    // this._createResources();
+    this._componentDidMount();
 
     this.init();
 
@@ -104,11 +98,11 @@ class Block<P extends Record<string, any> = any> {
 
   protected init() {}
 
-  _componentDidMount() {
-    this.componentDidMount();
+  async _componentDidMount() {
+    await this.componentDidMount();
   }
 
-  protected componentDidMount() {}
+  async componentDidMount() {}
 
   public dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
