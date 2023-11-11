@@ -5,7 +5,7 @@ import { EventBus } from './EventBus';
 
 // Нельзя создавать экземпляр данного класса
 // eslint-disable-next-line
-abstract class Block<P extends Record<string, any> = any> {
+class Block<P extends Record<string, any> = any> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -69,6 +69,7 @@ abstract class Block<P extends Record<string, any> = any> {
 
   _addEvents() {
     const { events = {} } = this.props as P & { events: Record<string, () => void> };
+
     Object.keys(events).forEach(eventName => {
       this._element?.addEventListener(eventName, events[eventName]);
     });
@@ -112,6 +113,14 @@ abstract class Block<P extends Record<string, any> = any> {
   public dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
 
+    Object.values(this.children).forEach(child => {
+      if (Array.isArray(child)) {
+        child.forEach(ch => ch.dispatchComponentDidMount());
+      } else {
+        child.dispatchComponentDidMount();
+      }
+    });
+
     // Object.values(this.children).forEach((child) => child.dispatchComponentDidMount());
   }
 
@@ -130,23 +139,36 @@ abstract class Block<P extends Record<string, any> = any> {
     if (!nextProps) {
       return;
     }
-    const newProps = { ...this.props, ...nextProps };
+    // const newProps = { ...this.props, ...nextProps };
 
-    Object.assign(this.props, newProps);
+    Object.assign(this.props, nextProps);
   };
 
   get element() {
     return this._element;
   }
 
+  // private _render() {
+  //   const fragment = this.render();
+
+  //   this._removeEvents();
+
+  //   this._element!.innerHTML = '';
+
+  //   this._element!.append(fragment);
+
+  //   this._addEvents();
+  // }
   private _render() {
     const fragment = this.render();
 
-    this._removeEvents();
+    const newElement = fragment.firstElementChild as HTMLElement;
 
-    this._element!.innerHTML = '';
+    if (this._element && newElement) {
+      this._element.replaceWith(newElement);
+    }
 
-    this._element!.append(fragment);
+    this._element = newElement;
 
     this._addEvents();
   }

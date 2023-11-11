@@ -3,10 +3,17 @@ import { registrationInput } from '../../components/constants';
 import { tmpl } from './singin.tmpl';
 import './singin.scss';
 import Block from '../../utils/Block';
+import AuthController from '../../controllers/AuthController';
+import { ISignUpData } from '../../api/AuthApi';
+import { Routes } from '../../../main';
 
 export class Singin extends Block {
   constructor() {
     super('div', {});
+  }
+
+  fetch(data: ISignUpData) {
+    AuthController.signup(data);
   }
 
   init() {
@@ -14,7 +21,8 @@ export class Singin extends Block {
       title: 'Регистрация',
       inputsArr: registrationInput,
       buttonText: 'Зарегистрироваться',
-      link: { to: '/login', text: 'Войти' },
+      link: { to: Routes.LoginRoute, text: 'Войти' },
+      fetch: this.fetch,
     });
   }
 

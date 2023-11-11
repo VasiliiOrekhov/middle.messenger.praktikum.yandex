@@ -19,9 +19,16 @@
     "no-tabs": ["error", { "allowIndentationTabs": true }],
     "no-underscore-dangle": "off",
     "class-methods-use-this": "off",
-    "no-unused-vars": ["error", { "args": "none" }],
+    // "no-unused-vars": ["error", { "args": "none" }],
     "default-param-last": "off",
     "linebreak-style": ["error", "unix"],
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error",
+    "no-useless-constructor": 0,
+    "no-empty-function": "off",
+    "max-classes-per-file": ["error", 2],
     "prettier/prettier": [
       1,
       {

@@ -6,31 +6,59 @@ import { tmpl } from './chat.tmpl';
 import './chat.scss';
 import { Button } from '../../components/Button';
 import { InputOnly } from '../../components/InputOnly';
+import ChatsController from '../../controllers/ChatsController';
+import { PopupCreateUser } from '../../modules/PopupCreateUser';
+import { State, store, withStore } from '../../utils/Store';
+import { IGetChat } from '../../api/ChatsApi';
 
-const testChatList = [
-  {
-    imgSrc: '/vite.svg',
-    name: 'Anna',
-    text: 'test message',
-    time: '13:58',
-    counter: 5,
-  },
-  {
-    imgSrc: '/vite.svg',
-    name: 'Anna',
-    text: 'test message',
-    time: '13:58',
-    counter: 5,
-  },
-];
+// const testChatList = [
+//   {
+//     imgSrc: '/vite.svg',
+//     name: 'Anna',
+//     text: 'test message',
+//     time: '13:58',
+//     counter: 5,
+//   },
+//   {
+//     imgSrc: '/vite.svg',
+//     name: 'Anna',
+//     text: 'test message',
+//     time: '13:58',
+//     counter: 5,
+//   },
+// ];
 
-export class Chat extends Block {
+export class BaseChat extends Block {
   constructor() {
     super('div', { selectedChat_imgSrc: '/vite.svg', selectedChat_name: 'Anna' });
   }
 
+  componentDidMount(): void {
+    console.log('componentDidMount BaseChat');
+
+    ChatsController.getChats();
+  }
+
   init() {
-    this.children.chatList = testChatList.map(props => new OneChat(props));
+    this.children.chatList = store.getState().chats?.map(props => new OneChat(props));
+    this.children.createChatButton = new Button({
+      text: 'Создать чат',
+      events: {
+        click: () => {
+          ChatsController.createChat({ title: 'new chat' });
+        },
+      },
+    });
+    this.children.popupCreateUser = new PopupCreateUser();
+
+    this.children.addUserButton = new Button({
+      text: 'Добавить пользователя',
+      events: {
+        click: () => {
+          document.querySelector('.popup_createUser')!.classList.add('popup_open');
+        },
+      },
+    });
     this.children.button = new Button({
       text: 'Отправить',
       events: {
@@ -52,7 +80,19 @@ export class Chat extends Block {
     this.children.fourMessage = new FriendMessage({ text: 'Сообщение 4' });
   }
 
+  // componentDidUpdate(_oldProps: IGetChat[], _newProps: IGetChat[]): boolean {
+  //   this.children.chats = this.createChats(_newProps);
+  //   this.children.chatList = store.getState().chats!.map(props => new OneChat(props))
+  //   return true;
+  // }
+
   render() {
     return this.compile(tmpl, { selectedChat_imgSrc: '/vite.svg' });
   }
 }
+
+function mapStateToProps(state: State) {
+  return { ...state.chats };
+}
+
+export const Chat = withStore(mapStateToProps)(BaseChat);

@@ -1,18 +1,19 @@
 export const tmpl = `
   <div class='profilePage'>
     <div class='leftsideModule'>
-      {{{chatPageLeftLink}}}
+      {{{chatPageButton}}}
     </div>
     <div class='basicContainer'>
       <img class='profileImg' src={{imgSrc}}/>
       <div class='profileName'>{{profileName}}</div>
+      {{email}}
       {{#each profileFields}}
             {{{this}}}
       {{/each}}
       <div class='linkContainer'>
-        {{{changeProfilePageLink}}}
-        {{{changePasswordPageLink}}}
-        {{{chatPageLink}}}
+        {{{changeProfileButton}}}
+        {{{changePasswordButton}}}
+        {{{logoutButton}}}
       </div>
     </div>
   </div>
