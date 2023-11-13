@@ -1,6 +1,7 @@
 export const tmpl = `
   <div class='chatPage'>
     {{{popupCreateUser}}}
+    {{{popupCreateChat}}}
     <div class='ChatListModule'>
       <div class='linkContainer'>
         {{{createChatButton}}}
@@ -13,27 +14,7 @@ export const tmpl = `
           {{{this}}}
         {{/each}}
       </div>
-      
     </div>
-    <div class='SelectedChatModule'>
-      <div class='header'>
-        <div class='headerInfo'>
-          <img class='headerInfo_img' src={{selectedChat_imgSrc}}/>
-          <p class='headerInfo_name'>{{selectedChat_name}}</p>
-        </div>
-        {{{addUserButton}}}
-      </div>
-      <div class='chat'>
-        {{{firstMessage}}}
-        {{{secondMessage}}}
-        {{{thirdMessage}}}
-        {{{fourMessage}}}
-      </div>
-      <form class='footer'>
-        <input class='fileInput' type='file'>
-        {{{input}}}
-        {{{button}}}
-      </form>
-    </div>
+    {{{selectChat}}}   
   </div>
 `;

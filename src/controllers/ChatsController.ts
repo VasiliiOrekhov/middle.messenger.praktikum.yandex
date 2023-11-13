@@ -18,7 +18,7 @@ class ChatsController {
   async deleteChat(data: IDeleteChat) {
     try {
       await this.api.deleteChat(data);
-      // add
+      await this.getChats();
     } catch (error) {
       console.log(error);
     }
@@ -28,7 +28,6 @@ class ChatsController {
     try {
       const chats = await this.api.getChats();
       store.set('chats', chats);
-      console.log(chats);
       // add
     } catch (error) {
       console.log(error);

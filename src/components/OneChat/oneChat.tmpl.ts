@@ -1,5 +1,5 @@
 export const tmpl = `
-<div class='oneChatContainer'>
+<div class='oneChatContainer' data-id={{id}} >
     <img class='oneChatImg' src={{avatar}}/>
     <div class='oneChatInfo'>
         <div class='mainInfo'>

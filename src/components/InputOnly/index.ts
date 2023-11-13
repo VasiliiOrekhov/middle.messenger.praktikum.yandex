@@ -12,7 +12,7 @@ export class InputOnly extends Block {
   inputParam: { name: string; elementVal: string };
 
   constructor(props: InputProps) {
-    super('div', props);
+    super(props);
     this.inputParam = {
       name: this.props.name,
       elementVal: (this.element!.querySelector('.inputField') as HTMLInputElement)!.value,

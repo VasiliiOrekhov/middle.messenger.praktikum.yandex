@@ -9,7 +9,7 @@ type MyMessageProps = {
 
 export class MyMessage extends Block {
   constructor(props: MyMessageProps) {
-    super('div', props);
+    super(props);
   }
 
   render() {

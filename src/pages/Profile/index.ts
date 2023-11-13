@@ -10,11 +10,9 @@ import { State, withStore } from '../../utils/Store';
 import Router from '../../utils/Router';
 
 export class BaseProfile extends Block {
-  async componentDidMount(): Promise<void> {
+  async init() {
     await AuthController.fetchUser();
-  }
 
-  init() {
     this.children.profileFields = profileFieldValues.map(field => {
       return new ProfileField({
         fieldName: field.fieldName,

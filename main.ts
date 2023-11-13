@@ -67,11 +67,10 @@ window.addEventListener('DOMContentLoaded', async () => {
   // const test = await AuthController.fetchUser();
   // console.log('test', test);
   try {
-    console.log('111');
-    const test = await AuthController.fetchUser();
+    await AuthController.fetchUser();
     // await ChatsController.getChats();
 
-    console.log('mainTRY', isProtectedRoute, test);
+    console.log('mainTRY', isProtectedRoute);
     Router.start();
 
     if (!isProtectedRoute) {

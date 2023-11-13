@@ -8,8 +8,8 @@ import { validator } from '../../utils/Validator';
 import ChatsController from '../../controllers/ChatsController';
 
 export class PopupCreateUser extends Block {
-  constructor() {
-    super('div', {});
+  constructor(props: { chatId: number }) {
+    super(props);
   }
 
   addUser() {
@@ -18,17 +18,17 @@ export class PopupCreateUser extends Block {
     const copyEl = input;
     copyEl.element!.querySelector('.errorText')!.textContent = errorText;
     if (isValid) {
-      console.log(input.inputParam.elementVal);
-      // add vasvas
-      ChatsController.addUsers({ users: [1348231], chatId: 33116 });
+      const num = parseInt(input.inputParam.elementVal, 10);
+      ChatsController.addUsers({ users: [num], chatId: this.props.chatId });
+      document.querySelector('.popup_createUser')!.classList.remove('popup_open');
     }
   }
 
   init() {
     this.children.input = new Input({
-      placeholder: 'Логин',
+      placeholder: 'id пользователя',
       type: 'text',
-      name: 'login',
+      name: 'number',
       events: {
         blur() {
           const inputInstance = this as unknown as Input;

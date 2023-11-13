@@ -20,7 +20,7 @@ type FormProps = {
 
 export class Form extends Block {
   constructor(props: FormProps) {
-    super('div', props);
+    super(props);
   }
 
   formValid() {

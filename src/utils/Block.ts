@@ -2,6 +2,7 @@ import Handlebars from 'handlebars';
 import { nanoid } from 'nanoid';
 
 import { EventBus } from './EventBus';
+import { isEqual } from './IsEqual';
 
 // Нельзя создавать экземпляр данного класса
 // eslint-disable-next-line
@@ -88,9 +89,6 @@ class Block<P extends Record<string, any> = any> {
   // }
 
   private _init() {
-    // this._createResources();
-    this._componentDidMount();
-
     this.init();
 
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
@@ -114,8 +112,6 @@ class Block<P extends Record<string, any> = any> {
         child.dispatchComponentDidMount();
       }
     });
-
-    // Object.values(this.children).forEach((child) => child.dispatchComponentDidMount());
   }
 
   private _componentDidUpdate() {
@@ -130,12 +126,17 @@ class Block<P extends Record<string, any> = any> {
 
   setProps = (nextProps: P) => {
     // TODO СРАВНЕНИЕ ПРОПС
+
+    // console.log('->>>>>>', this.props, nextProps);
     if (!nextProps) {
       return;
     }
-    // const newProps = { ...this.props, ...nextProps };
-
-    Object.assign(this.props, nextProps);
+    if (!isEqual(this.props, { ...this.props, ...nextProps })) {
+      console.log('not Equal', this.props, { ...this.props, ...nextProps });
+      Object.assign(this.props, nextProps);
+    } else {
+      console.log('Equal', this.props, { ...this.props, ...nextProps });
+    }
   };
 
   get element() {
@@ -165,6 +166,8 @@ class Block<P extends Record<string, any> = any> {
     this._element = newElement;
 
     this._addEvents();
+
+    // this.dispatchComponentDidMount();
   }
 
   // eslint-disable-next-line

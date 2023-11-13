@@ -10,7 +10,7 @@ import { Routes } from '../../../main';
 
 export class Login extends Block {
   constructor() {
-    super('div', {});
+    super({});
   }
 
   fetch(data: ISignInData) {

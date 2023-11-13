@@ -6,7 +6,7 @@ type FriendMessageProps = { text: string };
 
 export class FriendMessage extends Block {
   constructor(props: FriendMessageProps) {
-    super('div', props);
+    super(props);
   }
 
   render() {
