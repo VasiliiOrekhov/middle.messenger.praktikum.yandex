@@ -6,7 +6,7 @@
 
   .button {
     border: none;
-    background:none;
+    background: none;
     font-style: normal;
     font-weight: 500;
     font-size: 11px;
@@ -30,20 +30,19 @@
     align-items: center;
     flex-direction: column;
 
-    .imgContainer{
+    .imgContainer {
       position: relative;
     }
 
-    .imgContainer button{
+    .imgContainer button {
       position: absolute;
       top: 0;
       left: 0;
-      margin-top: 0px;
+      margin-top: 0;
       width: 130px;
       height: 130px;
       opacity: 0;
       z-index: 2;
-      
     }
 
     .inputImg {
