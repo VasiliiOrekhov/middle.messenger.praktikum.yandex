@@ -29,6 +29,9 @@
     "no-useless-constructor": 0,
     "no-empty-function": "off",
     "max-classes-per-file": ["error", 2],
+    "no-param-reassign": "off",
+    "no-continue": "off",
+    "no-prototype-builtins": "off",
     "prettier/prettier": [
       1,
       {

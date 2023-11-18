@@ -11,17 +11,6 @@ import Router from './src/utils/Router';
 import AuthController from './src/controllers/AuthController';
 import ChatsController from './src/controllers/ChatsController';
 
-// const ROUTES = {
-//   '/profile': new Profile().render(),
-//   '*': new NotFound().render(),
-//   '/login': new Login().render(),
-//   '/registration': new Singin().render(),
-//   '/fix': new FixProblem().render(),
-//   '/changeprofile': new ChangeProfile().render(),
-//   '/changepassword': new ChangePassword().render(),
-//   '/chat': new Chat().render(),
-// };
-
 export enum Routes {
   LoginRoute = '/login',
   RegistrationRoure = '/registration',
@@ -32,15 +21,6 @@ export enum Routes {
   ChatRoute = '/chat',
   NotFoundRoute = '*',
 }
-
-// window.addEventListener('DOMContentLoaded', () => {
-//   const root = document.getElementById('app');
-
-//   if (root) {
-//     const component = ROUTES[window.location.pathname] || ROUTES['*'];
-//     root.append(component);
-//   }
-// });
 
 window.addEventListener('DOMContentLoaded', async () => {
   Router.use(Routes.LoginRoute, Login)
@@ -53,36 +33,25 @@ window.addEventListener('DOMContentLoaded', async () => {
     .use(Routes.NotFoundRoute, NotFound);
 
   let isProtectedRoute = true;
-  console.log(isProtectedRoute);
 
-  switch (window.location.pathname) {
-    case Routes.LoginRoute:
-    case Routes.RegistrationRoure:
-      isProtectedRoute = false;
-      break;
+  if (window.location.pathname === Routes.LoginRoute || window.location.pathname === Routes.RegistrationRoure) {
+    isProtectedRoute = false;
   }
-  // if (window.location.pathname === Routes.LoginRoute || window.location.pathname === Routes.RegistrationRoure) {
-  //   isProtectedRoute = false;
-  // }
-  // const test = await AuthController.fetchUser();
-  // console.log('test', test);
+
   try {
     await AuthController.fetchUser();
-    // await ChatsController.getChats();
+    await ChatsController.getChats();
 
-    console.log('mainTRY', isProtectedRoute);
     Router.start();
 
     if (!isProtectedRoute) {
-      console.log('goProfile');
       Router.go(Routes.ProfileRoure);
     }
   } catch (e) {
-    console.log(e, 'Here', isProtectedRoute);
+    console.log(e);
     Router.start();
 
     if (isProtectedRoute) {
-      console.log('goLogin');
       Router.go(Routes.LoginRoute);
     }
   }

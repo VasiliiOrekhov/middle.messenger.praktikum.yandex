@@ -21,6 +21,10 @@ export class OneChat extends Block {
   render() {
     return this.compile(tmpl, {
       ...this.props,
+      imgSrc: this.props.avatar
+        ? `
+      https://ya-praktikum.tech/api/v2/resources/${this.props.avatar}`
+        : '',
     });
   }
 }

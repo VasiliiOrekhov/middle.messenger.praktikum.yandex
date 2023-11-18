@@ -4,7 +4,7 @@ export const tmpl = `
       {{{chatPageButton}}}
     </div>
     <div class='basicContainer'>
-      <img class='profileImg' src={{imgSrc}}/>
+      <img class='profileImg' src={{imgSrc}} alt="IMG"/>
       <div class='profileName'>{{profileName}}</div>
       {{#each profileFields}}
             {{{this}}}

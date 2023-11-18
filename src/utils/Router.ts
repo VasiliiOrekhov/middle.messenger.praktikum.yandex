@@ -2,6 +2,7 @@ import Block from './Block';
 import { Route } from './Route';
 
 class Router {
+  // eslint-disable-next-line
   private static __instance: Router;
 
   private routes: Route[] = [];
@@ -12,6 +13,7 @@ class Router {
 
   constructor(private readonly rootQuery: string) {
     if (Router.__instance) {
+      // eslint-disable-next-line
       return Router.__instance;
     }
 

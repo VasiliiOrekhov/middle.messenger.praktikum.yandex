@@ -129,14 +129,3 @@ export const changePasswordFieldValues = [
     events,
   },
 ];
-
-export const paths = {
-  login: '/login',
-  registration: '/registration',
-  chat: '/chat',
-  profile: '/profile',
-  changeprofile: '/changeprofile',
-  changepassword: '/changepassword',
-  noPath: '*',
-  fix: '/fix',
-};

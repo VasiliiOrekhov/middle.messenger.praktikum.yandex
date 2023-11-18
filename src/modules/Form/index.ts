@@ -1,8 +1,6 @@
 import { tmpl } from './form.tmpl';
 import { Input } from '../../components/Input';
-import { Link } from '../../components/Link';
 import type { InputProps } from '../../components/Input';
-// import type { LinkProps } from '../../components/Link';
 import './form.scss';
 import Block from '../../utils/Block';
 import { Button } from '../../components/Button';
@@ -39,14 +37,12 @@ export class Form extends Block {
         formResult[el.inputParam.name] = el.inputParam.elementVal;
       }
     });
-    console.log(formResult);
     if (validAll) {
       this.props.fetch(formResult);
     }
   }
 
   init() {
-    this.children.link = new Link({ to: this.props.link.to, text: this.props.link.text });
     this.children.linkButton = new Button({
       text: this.props.link.text,
       events: {

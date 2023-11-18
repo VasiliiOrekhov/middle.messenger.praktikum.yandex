@@ -1,4 +1,4 @@
-import { HTTPTransport } from '../utils/Fetch';
+import { HTTPTransport } from '../utils/HTTPTransport';
 
 export abstract class API {
   protected http: HTTPTransport;

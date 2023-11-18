@@ -1,5 +1,6 @@
 import { ChatsApi, IAddUsers, ICreateChat, IDeleteChat } from '../api/ChatsApi';
 import { store } from '../utils/Store';
+import MessageController from './MessageController';
 // import { store } from '../utils/Store';
 
 class ChatsController {
@@ -27,6 +28,11 @@ class ChatsController {
   async getChats() {
     try {
       const chats = await this.api.getChats();
+      chats.map(async chat => {
+        const token = await this.getToken(chat.id)!;
+
+        await MessageController.connect(chat.id, token);
+      });
       store.set('chats', chats);
       // add
     } catch (error) {
@@ -38,9 +44,7 @@ class ChatsController {
     try {
       await this.api.addUsers(data);
       const { chatId } = data;
-      const userList = this.api.getUser(chatId);
-      console.log(userList);
-      // add
+      await this.api.getUser(chatId);
     } catch (error) {
       console.log(error);
     }
@@ -50,12 +54,19 @@ class ChatsController {
     try {
       await this.api.deleteUsers(data);
       const { chatId } = data;
-      const userList = this.api.getUser(chatId);
+      await this.api.getUser(chatId);
 
-      console.log(userList);
       // add
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  getToken(id: number) {
+    try {
+      return this.api.getToken(id);
+    } catch (e) {
+      throw new Error();
     }
   }
 }

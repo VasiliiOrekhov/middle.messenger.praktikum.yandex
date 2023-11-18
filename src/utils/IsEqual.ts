@@ -13,7 +13,6 @@ const isPlainObject = (value: unknown): value is PlainObject =>
 const isArrayOrObject = (value: unknown): value is [] | PlainObject => isPlainObject(value) || isArray(value);
 
 export const isEqual = (lhs: PlainObject, rhs: PlainObject) => {
-  // Сравнение количества ключей объектов и массивов
   if (Object.keys(lhs).length !== Object.keys(rhs).length) {
     return false;
   }

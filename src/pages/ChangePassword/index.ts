@@ -9,10 +9,11 @@ import UsersController from '../../controllers/UsersController';
 import { IChangePasswordData } from '../../api/UsersApi';
 import Router from '../../utils/Router';
 import { Routes } from '../../../main';
+import { store } from '../../utils/Store';
 
 export class ChangePassword extends Block {
   constructor() {
-    super('div', { imgSrc: '/vite.svg' });
+    super({});
   }
 
   formValid() {
@@ -34,7 +35,6 @@ export class ChangePassword extends Block {
     if (validAll) {
       UsersController.changePassword(formResult as IChangePasswordData);
     }
-    console.log(formResult);
   }
 
   init() {
@@ -59,6 +59,9 @@ export class ChangePassword extends Block {
   }
 
   render() {
-    return this.compile(tmpl, { imgSrc: '/vite.svg' });
+    return this.compile(tmpl, {
+      imgSrc: `
+    https://ya-praktikum.tech/api/v2/resources/${store.getState().user!.avatar}`,
+    });
   }
 }

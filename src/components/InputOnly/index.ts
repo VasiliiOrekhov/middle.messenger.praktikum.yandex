@@ -15,7 +15,7 @@ export class InputOnly extends Block {
     super(props);
     this.inputParam = {
       name: this.props.name,
-      elementVal: (this.element!.querySelector('.inputField') as HTMLInputElement)!.value,
+      elementVal: (this.element! as HTMLInputElement)!.value,
     };
   }
 
@@ -28,11 +28,8 @@ export class InputOnly extends Block {
   }
 
   _addEvents() {
-    Object.keys(this.props.events).forEach(eventName => {
-      (this.element!.querySelector('.inputField') as HTMLInputElement)!.addEventListener(eventName, e => {
-        this.setInputVal((e.target as HTMLInputElement).value);
-        this.props.events[eventName].apply(this);
-      });
+    this.element!.addEventListener('blur', e => {
+      this.setInputVal((e.target as HTMLInputElement).value);
     });
   }
 

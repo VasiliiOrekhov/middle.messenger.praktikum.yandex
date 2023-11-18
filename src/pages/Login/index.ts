@@ -5,16 +5,17 @@ import './login.scss';
 import Block from '../../utils/Block';
 import AuthController from '../../controllers/AuthController';
 import { ISignInData } from '../../api/AuthApi';
-import Router from '../../utils/Router';
 import { Routes } from '../../../main';
+import ChatsController from '../../controllers/ChatsController';
 
 export class Login extends Block {
   constructor() {
     super({});
   }
 
-  fetch(data: ISignInData) {
-    AuthController.signin(data);
+  async fetch(data: ISignInData) {
+    await AuthController.signin(data);
+    await ChatsController.getChats();
   }
 
   init() {

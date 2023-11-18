@@ -5,8 +5,7 @@ export const tmpl = `
     <div class='ChatListModule'>
       <div class='linkContainer'>
         {{{createChatButton}}}
-        <a  class="custom-link" href="/profile">Профиль ></a>
-        
+        {{{toProfileButton}}}
       </div>
       <Input class='chatListInput' placeholder="Поиск"/>
       <div class='chatList'>

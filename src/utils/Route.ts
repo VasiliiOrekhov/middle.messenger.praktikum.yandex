@@ -37,7 +37,7 @@ export class Route {
 
   render() {
     if (!this.block) {
-      this.block = new this.BlockClass('div', {});
+      this.block = new this.BlockClass({});
 
       render(this.query, this.block!);
     }

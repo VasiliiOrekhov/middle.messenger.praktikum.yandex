@@ -83,11 +83,6 @@ class Block<P extends Record<string, any> = any> {
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
-  // _createResources() {
-  //   const { tagName } = this._meta;
-  //   this._element = this._createDocumentElement(tagName);
-  // }
-
   private _init() {
     this.init();
 
@@ -125,17 +120,11 @@ class Block<P extends Record<string, any> = any> {
   }
 
   setProps = (nextProps: P) => {
-    // TODO СРАВНЕНИЕ ПРОПС
-
-    // console.log('->>>>>>', this.props, nextProps);
     if (!nextProps) {
       return;
     }
     if (!isEqual(this.props, { ...this.props, ...nextProps })) {
-      console.log('not Equal', this.props, { ...this.props, ...nextProps });
       Object.assign(this.props, nextProps);
-    } else {
-      console.log('Equal', this.props, { ...this.props, ...nextProps });
     }
   };
 
@@ -143,17 +132,6 @@ class Block<P extends Record<string, any> = any> {
     return this._element;
   }
 
-  // private _render() {
-  //   const fragment = this.render();
-
-  //   this._removeEvents();
-
-  //   this._element!.innerHTML = '';
-
-  //   this._element!.append(fragment);
-
-  //   this._addEvents();
-  // }
   private _render() {
     const fragment = this.render();
 
@@ -166,8 +144,6 @@ class Block<P extends Record<string, any> = any> {
     this._element = newElement;
 
     this._addEvents();
-
-    // this.dispatchComponentDidMount();
   }
 
   // eslint-disable-next-line

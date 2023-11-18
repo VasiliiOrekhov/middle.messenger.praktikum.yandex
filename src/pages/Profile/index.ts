@@ -6,17 +6,21 @@ import './profile.scss';
 import Block from '../../utils/Block';
 import { Button } from '../../components/Button';
 import AuthController from '../../controllers/AuthController';
-import { State, withStore } from '../../utils/Store';
+import { State, withStore, store } from '../../utils/Store';
 import Router from '../../utils/Router';
+import { IUser } from '../../api/ChatsApi';
 
 export class BaseProfile extends Block {
-  async init() {
-    await AuthController.fetchUser();
+  constructor() {
+    super({});
+  }
 
+  init() {
+    console.log(store.getState());
     this.children.profileFields = profileFieldValues.map(field => {
       return new ProfileField({
         fieldName: field.fieldName,
-        fieldValue: this.props[field.fieldValue],
+        fieldValue: store.getState().user![field.fieldValue as keyof IUser] as string,
       });
     });
     this.children.logoutButton = new Button({
@@ -53,18 +57,14 @@ export class BaseProfile extends Block {
     });
   }
 
-  protected componentDidUpdate(): boolean {
-    this.children.profileFields = profileFieldValues.map(field => {
-      return new ProfileField({
-        fieldName: field.fieldName,
-        fieldValue: this.props[field.fieldValue],
-      });
-    });
-    return true;
-  }
-
   render() {
-    return this.compile(tmpl, { imgSrc: '/vite.svg' });
+    return this.compile(tmpl, {
+      imgSrc: store.getState().user!.avatar
+        ? `
+    https://ya-praktikum.tech/api/v2/resources/${store.getState().user!.avatar}
+    `
+        : '',
+    });
   }
 }
 

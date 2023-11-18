@@ -4,32 +4,26 @@ import { OneChat } from '../../components/OneChat';
 import Block from '../../utils/Block';
 import { tmpl } from './chat.tmpl';
 import './chat.scss';
-import { Button } from '../../components/Button';
-import ChatsController from '../../controllers/ChatsController';
 import { State, store, withStore } from '../../utils/Store';
 import { SelectChat } from '../../modules/SelectChat';
+import Router from '../../utils/Router';
+import { Button } from '../../components/Button';
+import { Routes } from '../../../main';
 
-type IBaseChatProps = IGetChat[] & {
-  selectedChatId: number | null;
-};
 export class BaseChat extends Block {
-  constructor(props: IBaseChatProps) {
-    super({
-      ...props,
-    });
+  constructor() {
+    super({});
   }
 
   selectChat(id: number) {
     this.setProps({ selectedChatId: id });
   }
 
+  createChat() {
+    document.querySelector('.popup_createChat')!.classList.add('popup_open');
+  }
+
   async init() {
-    await ChatsController.getChats();
-
-    this.children.chatList = store
-      .getState()
-      .chats!.map(props => new OneChat({ ...props, selectChat: this.selectChat.bind(this) }));
-
     this.children.createChatButton = new Button({
       text: 'Создать чат',
       events: {
@@ -38,18 +32,34 @@ export class BaseChat extends Block {
         },
       },
     });
+    this.children.toProfileButton = new Button({
+      text: 'Профиль',
+      events: {
+        click: () => {
+          Router.go(Routes.ProfileRoure);
+        },
+      },
+    });
+    this.children.chatList = store
+      .getState()
+      .chats!.map(props => new OneChat({ ...props, selectChat: this.selectChat.bind(this) }));
+
     this.children.popupCreateChat = new PopupCreateChat();
-    this.children.selectChat = new SelectChat({ id: 0, deleteChat: this.selectChat.bind(this) });
+    this.children.selectChat = new SelectChat({
+      id: 0,
+      data: Object.values(this.props).find(el => (el as IGetChat)?.id === this.props.selectedChatId) as IGetChat,
+      deleteChat: this.selectChat.bind(this),
+    });
   }
 
   protected componentDidUpdate(): boolean {
-    console.log(Object.values(this.props));
     this.children.chatList = store
       .getState()
       .chats!.map(props => new OneChat({ ...props, selectChat: this.selectChat.bind(this) }));
 
     this.children.selectChat = new SelectChat({
       id: this.props.selectedChatId,
+      data: Object.values(this.props).find(el => (el as IGetChat)?.id === this.props.selectedChatId) as IGetChat,
       deleteChat: this.selectChat.bind(this),
     });
 
@@ -57,7 +67,7 @@ export class BaseChat extends Block {
   }
 
   render() {
-    return this.compile(tmpl, { ...this.props, selectedChat_imgSrc: '/vite.svg' });
+    return this.compile(tmpl, { ...this.props, create: this.createChat });
   }
 }
 

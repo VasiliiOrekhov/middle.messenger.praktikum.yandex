@@ -1,13 +1,14 @@
+// eslint-disable-next-line
 export type Indexed<T = any> = {
   [key in string]: T;
 };
 
-export function merge(lhs: Indexed, rhs: Indexed): Indexed {
+function merge(lhs: Indexed, rhs: Indexed): Indexed {
+  // eslint-disable-next-line
   for (const p in rhs) {
     if (!rhs.hasOwnProperty(p)) {
       continue;
     }
-
     try {
       if (rhs[p].constructor === Object) {
         rhs[p] = merge(lhs[p] as Indexed, rhs[p] as Indexed);
@@ -35,6 +36,7 @@ export function setter(object: Indexed | unknown, path: string, value: unknown):
     (acc, key) => ({
       [key]: acc,
     }),
+    // eslint-disable-next-line
     value as any
   );
 

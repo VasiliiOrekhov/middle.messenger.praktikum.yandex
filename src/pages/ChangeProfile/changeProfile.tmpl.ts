@@ -7,7 +7,7 @@ export const tmpl = `
     <div class='basicContainer'>
       <div class='imgContainer'>
         
-          <img  class='profileImg' src={{imgSrc}} alt="Choose File">
+          <img  class='profileImg' src={{imgSrc}} alt="IMG">
           {{{imgButton}}}
         
       </div>

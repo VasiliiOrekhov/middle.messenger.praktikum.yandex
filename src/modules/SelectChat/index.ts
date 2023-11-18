@@ -8,9 +8,12 @@ import { MyMessage } from '../../components/MyMessage';
 import { FriendMessage } from '../../components/FriendMessage';
 import { PopupDeleteUser } from '../PopupDeleteUser';
 import ChatsController from '../../controllers/ChatsController';
+import { IGetChat } from '../../api/ChatsApi';
+import MessageController from '../../controllers/MessageController';
 
 type SelectChatProps = {
   id: number;
+  data: IGetChat;
   deleteChat: (id: number) => void;
 };
 export class SelectChat extends Block {
@@ -53,7 +56,10 @@ export class SelectChat extends Block {
       events: {
         click: e => {
           e.preventDefault();
-          console.log({ message: (this.children.input as InputOnly).inputParam.elementVal });
+          const InputValue = (this.children.input as InputOnly).inputParam.elementVal;
+          if (InputValue) {
+            MessageController.sendMessage(this.props.id, InputValue);
+          }
         },
       },
     });
@@ -62,15 +68,21 @@ export class SelectChat extends Block {
     this.children.thirdMessage = new MyMessage({ text: 'Сообщение 3' });
     this.children.fourMessage = new FriendMessage({ text: 'Сообщение 4' });
 
-    // this.children.input = new InputOnly({
-    //   name: 'message',
-    //   events: {
-    //     blur() {},
-    //   },
-    // });
+    this.children.input = new InputOnly({
+      name: 'message',
+      events: {
+        blur() {},
+      },
+    });
   }
 
   render() {
-    return this.compile(tmpl, { ...this.props, selectedChat_imgSrc: '/vite.svg' });
+    return this.compile(tmpl, {
+      ...this.props,
+      imgSrc: this.props.data?.avatar
+        ? `
+      // https://ya-praktikum.tech/api/v2/resources/${this.props.data?.avatar}`
+        : '',
+    });
   }
 }

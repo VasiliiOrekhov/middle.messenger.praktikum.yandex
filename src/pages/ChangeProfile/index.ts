@@ -1,3 +1,4 @@
+import { IUser } from '../../api/ChatsApi';
 import { IChangeProfileData } from '../../api/UsersApi';
 import { profileFieldValues } from '../../components/constants';
 import { ChangeProfileField } from '../../components/ChangeProfileField';
@@ -8,20 +9,13 @@ import { Button } from '../../components/Button';
 import { validator } from '../../utils/Validator';
 import UsersController from '../../controllers/UsersController';
 import { store } from '../../utils/Store';
-import { IUser } from '../../api/AuthApi';
-import AuthController from '../../controllers/AuthController';
 import Router from '../../utils/Router';
 import { Routes } from '../../../main';
 import { PopupImg } from '../../modules/Popup';
 
 export class ChangeProfile extends Block {
   constructor() {
-    super('div', {});
-  }
-
-  componentDidMount(): void {
-    console.log('ChangeProfile');
-    AuthController.fetchUser();
+    super({});
   }
 
   formValid() {
@@ -41,7 +35,6 @@ export class ChangeProfile extends Block {
     if (validAll) {
       UsersController.changeProfile(formResult as IChangeProfileData);
     }
-    console.log(formResult);
   }
 
   init() {
@@ -58,7 +51,7 @@ export class ChangeProfile extends Block {
       field =>
         new ChangeProfileField({
           ...field,
-          fieldValue: (store.getState().user as IUser)[field.fieldValue],
+          fieldValue: store.getState().user![field.fieldValue as keyof IUser] as string,
         })
     );
     this.children.profilePageButton = new Button({
@@ -81,6 +74,9 @@ export class ChangeProfile extends Block {
   }
 
   render() {
-    return this.compile(tmpl, { imgSrc: '/vite.svg' });
+    return this.compile(tmpl, {
+      imgSrc: `
+    https://ya-praktikum.tech/api/v2/resources/${store!.getState()!.user!.avatar}`,
+    });
   }
 }

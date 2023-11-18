@@ -6,18 +6,15 @@ export const tmpl = `
     {{#if id}}
       <div class='header'>
         <div class='headerInfo'>
-          <img class='headerInfo_img' src={{selectedChat_imgSrc}}/>
-          <p class='headerInfo_name'>{{selectedChat_name}}</p>
+          <img class='headerInfo_img' src={{imgSrc}} alt="IMG"/>
+          <p class='headerInfo_name'>{{data.title}}</p>
         </div>
         {{{addUserButton}}}
         {{{deleteUserButton}}}
         {{{deleteChatButton}}}
       </div>
       <div class='chat'>
-        {{{firstMessage}}}
-        {{{secondMessage}}}
-        {{{thirdMessage}}}
-        {{{fourMessage}}}
+        здесь будут сообщения
       </div>
       <form class='footer'>
         <input class='fileInput' type='file'>

@@ -21,6 +21,7 @@ class AuthController {
   async signup(data: ISignUpData) {
     try {
       await this.api.signup(data);
+      await this.fetchUser();
 
       Router.go(Routes.ProfileRoure);
     } catch (error) {
@@ -41,13 +42,9 @@ class AuthController {
   }
 
   async fetchUser() {
-    try {
-      const user = await this.api.getUser();
-      store.set('user', user);
-      // setTimeout(() => store.set('user', user), 0);
-    } catch (error) {
-      console.log(error);
-    }
+    const user = await this.api.getUser();
+
+    store.set('user', user);
   }
 }
 
