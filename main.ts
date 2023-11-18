@@ -12,13 +12,13 @@ import AuthController from './src/controllers/AuthController';
 import ChatsController from './src/controllers/ChatsController';
 
 export enum Routes {
-  LoginRoute = '/login',
-  RegistrationRoure = '/registration',
+  LoginRoute = '/',
+  RegistrationRoure = '/sign-up',
   ProfileRoure = '/profile',
   FixRoute = '/fix',
-  ChangeProfileRoute = '/changeprofile',
+  ChangeProfileRoute = '/settings',
   ChangePasswordRoure = '/changepassword',
-  ChatRoute = '/chat',
+  ChatRoute = '/messenger',
   NotFoundRoute = '*',
 }
 

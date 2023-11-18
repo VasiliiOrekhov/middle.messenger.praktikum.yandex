@@ -16,11 +16,10 @@ export class BaseProfile extends Block {
   }
 
   init() {
-    console.log(store.getState());
     this.children.profileFields = profileFieldValues.map(field => {
       return new ProfileField({
         fieldName: field.fieldName,
-        fieldValue: store.getState().user![field.fieldValue as keyof IUser] as string,
+        fieldValue: (store.getState().user?.[field.fieldValue as keyof IUser] as string) || '',
       });
     });
     this.children.logoutButton = new Button({
@@ -59,7 +58,7 @@ export class BaseProfile extends Block {
 
   render() {
     return this.compile(tmpl, {
-      imgSrc: store.getState().user!.avatar
+      imgSrc: store.getState().user?.avatar
         ? `
     https://ya-praktikum.tech/api/v2/resources/${store.getState().user!.avatar}
     `

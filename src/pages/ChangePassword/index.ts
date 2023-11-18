@@ -60,8 +60,10 @@ export class ChangePassword extends Block {
 
   render() {
     return this.compile(tmpl, {
-      imgSrc: `
-    https://ya-praktikum.tech/api/v2/resources/${store.getState().user!.avatar}`,
+      imgSrc: store.getState().user?.avatar
+        ? `
+    https://ya-praktikum.tech/api/v2/resources/${store.getState().user!.avatar}`
+        : '',
     });
   }
 }

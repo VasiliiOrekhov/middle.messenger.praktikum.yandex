@@ -12,7 +12,7 @@ class AuthController {
 
       await this.fetchUser();
 
-      Router.go(Routes.ProfileRoure);
+      Router.go(Routes.ChatRoute);
     } catch (error) {
       console.log(error);
     }
@@ -23,7 +23,7 @@ class AuthController {
       await this.api.signup(data);
       await this.fetchUser();
 
-      Router.go(Routes.ProfileRoure);
+      Router.go(Routes.ChatRoute);
     } catch (error) {
       console.log(error);
     }

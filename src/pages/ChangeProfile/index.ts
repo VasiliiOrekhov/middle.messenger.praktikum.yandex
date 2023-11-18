@@ -51,7 +51,7 @@ export class ChangeProfile extends Block {
       field =>
         new ChangeProfileField({
           ...field,
-          fieldValue: store.getState().user![field.fieldValue as keyof IUser] as string,
+          fieldValue: (store.getState().user?.[field.fieldValue as keyof IUser] as string) || '',
         })
     );
     this.children.profilePageButton = new Button({
@@ -75,8 +75,10 @@ export class ChangeProfile extends Block {
 
   render() {
     return this.compile(tmpl, {
-      imgSrc: `
-    https://ya-praktikum.tech/api/v2/resources/${store!.getState()!.user!.avatar}`,
+      imgSrc: store.getState().user?.avatar
+        ? `
+    https://ya-praktikum.tech/api/v2/resources/${store.getState().user!.avatar}`
+        : '',
     });
   }
 }

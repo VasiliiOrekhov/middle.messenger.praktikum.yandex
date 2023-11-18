@@ -40,9 +40,8 @@ export class BaseChat extends Block {
         },
       },
     });
-    this.children.chatList = store
-      .getState()
-      .chats!.map(props => new OneChat({ ...props, selectChat: this.selectChat.bind(this) }));
+    this.children.chatList =
+      store.getState().chats?.map(props => new OneChat({ ...props, selectChat: this.selectChat.bind(this) })) || [];
 
     this.children.popupCreateChat = new PopupCreateChat();
     this.children.selectChat = new SelectChat({
