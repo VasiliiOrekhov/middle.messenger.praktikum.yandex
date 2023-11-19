@@ -1,5 +1,5 @@
 import { Routes } from '../../../main';
-import { profileFieldValues } from '../../components/constants';
+import { RESOURCES_URL, profileFieldValues } from '../../components/constants';
 import { ProfileField } from '../../components/ProfileField';
 import { tmpl } from './profile.tmpl.js';
 import './profile.scss';
@@ -60,7 +60,7 @@ export class BaseProfile extends Block {
     return this.compile(tmpl, {
       imgSrc: store.getState().user?.avatar
         ? `
-    https://ya-praktikum.tech/api/v2/resources/${store.getState().user!.avatar}
+        ${RESOURCES_URL}/${store.getState().user!.avatar}
     `
         : '',
     });

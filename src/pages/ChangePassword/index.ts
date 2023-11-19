@@ -1,5 +1,4 @@
-import { changePasswordFieldValues } from '../../components/constants';
-import { ChangeProfileField } from '../../components/ChangeProfileField';
+import { changePasswordFieldValues, RESOURCES_URL } from '../../components/constants';
 import { tmpl } from '../ChangeProfile/changeProfile.tmpl';
 import '../ChangeProfile/changeProfile.scss';
 import Block from '../../utils/Block';
@@ -10,6 +9,7 @@ import { IChangePasswordData } from '../../api/UsersApi';
 import Router from '../../utils/Router';
 import { Routes } from '../../../main';
 import { store } from '../../utils/Store';
+import { ChangePasswordField } from '../../components/ChangePasswordField';
 
 export class ChangePassword extends Block {
   constructor() {
@@ -19,7 +19,7 @@ export class ChangePassword extends Block {
   formValid() {
     let validAll = true;
     const formResult: Record<string, string> = {};
-    (this.children.profileFields as ChangeProfileField[]).forEach(el => {
+    (this.children.profileFields as ChangePasswordField[]).forEach(el => {
       if (!el.inputParam.isValid) {
         const { errorText, isValid } = validator(el.inputParam.name, el.inputParam.elementVal);
         if (!isValid) {
@@ -47,7 +47,7 @@ export class ChangePassword extends Block {
       },
     });
 
-    this.children.profileFields = changePasswordFieldValues.map(field => new ChangeProfileField(field));
+    this.children.profileFields = changePasswordFieldValues.map(field => new ChangePasswordField(field));
     this.children.profilePageButton = new Button({
       text: '<',
       events: {
@@ -62,7 +62,7 @@ export class ChangePassword extends Block {
     return this.compile(tmpl, {
       imgSrc: store.getState().user?.avatar
         ? `
-    https://ya-praktikum.tech/api/v2/resources/${store.getState().user!.avatar}`
+        ${RESOURCES_URL}/${store.getState().user!.avatar}`
         : '',
     });
   }

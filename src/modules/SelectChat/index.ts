@@ -10,6 +10,7 @@ import { PopupDeleteUser } from '../PopupDeleteUser';
 import ChatsController from '../../controllers/ChatsController';
 import { IGetChat } from '../../api/ChatsApi';
 import MessageController from '../../controllers/MessageController';
+import { RESOURCES_URL } from '../../components/constants';
 
 type SelectChatProps = {
   id: number;
@@ -81,7 +82,7 @@ export class SelectChat extends Block {
       ...this.props,
       imgSrc: this.props.data?.avatar
         ? `
-      // https://ya-praktikum.tech/api/v2/resources/${this.props.data?.avatar}`
+       ${RESOURCES_URL}/${this.props.data?.avatar}`
         : '',
     });
   }

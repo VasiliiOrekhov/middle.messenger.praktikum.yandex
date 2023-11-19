@@ -1,6 +1,6 @@
 import { IUser } from '../../api/ChatsApi';
 import { IChangeProfileData } from '../../api/UsersApi';
-import { profileFieldValues } from '../../components/constants';
+import { RESOURCES_URL, profileFieldValues } from '../../components/constants';
 import { ChangeProfileField } from '../../components/ChangeProfileField';
 import { tmpl } from './changeProfile.tmpl';
 import './changeProfile.scss';
@@ -77,7 +77,7 @@ export class ChangeProfile extends Block {
     return this.compile(tmpl, {
       imgSrc: store.getState().user?.avatar
         ? `
-    https://ya-praktikum.tech/api/v2/resources/${store.getState().user!.avatar}`
+        ${RESOURCES_URL}/${store.getState().user!.avatar}`
         : '',
     });
   }
