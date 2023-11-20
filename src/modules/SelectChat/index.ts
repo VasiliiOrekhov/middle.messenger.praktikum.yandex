@@ -5,26 +5,42 @@ import { Button } from '../../components/Button';
 import { PopupCreateUser } from '../PopupAddUser';
 import { InputOnly } from '../../components/InputOnly';
 import { MyMessage } from '../../components/MyMessage';
-import { FriendMessage } from '../../components/FriendMessage';
 import { PopupDeleteUser } from '../PopupDeleteUser';
 import ChatsController from '../../controllers/ChatsController';
-import { IGetChat } from '../../api/ChatsApi';
 import MessageController from '../../controllers/MessageController';
 import { RESOURCES_URL } from '../../components/constants';
+import { State, store, withStore } from '../../utils/Store';
+import { FriendMessage } from '../../components/FriendMessage';
 
-type SelectChatProps = {
-  id: number;
-  data: IGetChat;
-  deleteChat: (id: number) => void;
+export type IMessage = {
+  chat_id: number;
+  time: string;
+  type: string;
+  user_id: number;
+  content: string;
+  file?: {
+    id: number;
+    user_id: number;
+    path: string;
+    filename: string;
+    content_type: string;
+    content_size: number;
+    upload_date: string;
+  };
 };
-export class SelectChat extends Block {
-  constructor(props: SelectChatProps) {
+interface MessengerProps {
+  selectedChat: number | undefined;
+  messages: IMessage[];
+  userId: number;
+}
+export class BaseSelectChat extends Block {
+  constructor(props: MessengerProps) {
     super(props);
   }
 
   init(): void {
-    this.children.popupCreateUser = new PopupCreateUser({ chatId: this.props.id });
-    this.children.popupDeleteUser = new PopupDeleteUser({ chatId: this.props.id });
+    this.children.popupCreateUser = new PopupCreateUser({ chatId: this.props.selectedChat });
+    this.children.popupDeleteUser = new PopupDeleteUser({ chatId: this.props.selectedChat });
 
     this.children.addUserButton = new Button({
       text: 'Добавить пользователя',
@@ -42,12 +58,19 @@ export class SelectChat extends Block {
         },
       },
     });
+    this.children.chatList = (this.props.messages as IMessage[]).map(el => {
+      if (el.user_id === this.props.userId) {
+        return new MyMessage(el);
+      }
+      return new FriendMessage(el);
+    });
     this.children.deleteChatButton = new Button({
       text: 'Удалить чат',
       events: {
         click: () => {
-          ChatsController.deleteChat({ chatId: this.props.id });
-          this.props.deleteChat(0);
+          ChatsController.deleteChat({ chatId: this.props.selectedChat });
+          store.set('selectedChatId', undefined);
+          this.setProps({ selectedChat: undefined });
         },
       },
     });
@@ -59,15 +82,12 @@ export class SelectChat extends Block {
           e.preventDefault();
           const InputValue = (this.children.input as InputOnly).inputParam.elementVal;
           if (InputValue) {
-            MessageController.sendMessage(this.props.id, InputValue);
+            MessageController.sendMessage(this.props.selectedChat, InputValue);
+            ((this.children.input as InputOnly).element! as HTMLInputElement).value = '';
           }
         },
       },
     });
-    this.children.firstMessage = new MyMessage({ text: 'Сообщение 1' });
-    this.children.secondMessage = new FriendMessage({ text: 'Сообщение 2' });
-    this.children.thirdMessage = new MyMessage({ text: 'Сообщение 3' });
-    this.children.fourMessage = new FriendMessage({ text: 'Сообщение 4' });
 
     this.children.input = new InputOnly({
       name: 'message',
@@ -75,6 +95,16 @@ export class SelectChat extends Block {
         blur() {},
       },
     });
+  }
+
+  protected componentDidUpdate(): boolean {
+    this.children.chatList = (this.props.messages as IMessage[]).map(el => {
+      if (el.user_id === this.props.userId) {
+        return new MyMessage(el);
+      }
+      return new FriendMessage(el);
+    });
+    return true;
   }
 
   render() {
@@ -87,3 +117,21 @@ export class SelectChat extends Block {
     });
   }
 }
+
+const withSelectChat = withStore((state: State) => {
+  if (!state.selectedChatId) {
+    return {
+      messages: [],
+      selectedChat: undefined,
+      userId: state.user?.id,
+    };
+  }
+
+  return {
+    messages: (state.messages || {})[state.selectedChatId] || [],
+    selectedChat: state.selectedChatId,
+    userId: state.user!.id,
+  };
+});
+
+export const SelectChat = withSelectChat(BaseSelectChat as unknown as typeof Block);

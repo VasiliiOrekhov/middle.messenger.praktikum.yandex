@@ -2,7 +2,6 @@ import { tmpl } from './popup.tmpl';
 import './popup.scss';
 import Block from '../../utils/Block';
 import { Button } from '../../components/Button';
-// import UsersController from '../../controllers/UsersController';
 import { Input } from '../../components/Input';
 import { validator } from '../../utils/Validator';
 import ChatsController from '../../controllers/ChatsController';

@@ -1,9 +1,8 @@
 export const tmpl = `
-
     <div class='SelectedChatModule'>
     {{{popupCreateUser}}}
     {{{popupDeleteUser}}}
-    {{#if id}}
+    {{#if selectedChat}}
       <div class='header'>
         <div class='headerInfo'>
           <img class='headerInfo_img' src={{imgSrc}} alt="IMG"/>
@@ -14,7 +13,9 @@ export const tmpl = `
         {{{deleteChatButton}}}
       </div>
       <div class='chat'>
-        здесь будут сообщения
+        {{#each chatList}}
+            {{{this}}}
+        {{/each}}
       </div>
       <form class='footer'>
         <input class='fileInput' type='file'>
@@ -24,6 +25,5 @@ export const tmpl = `
     {{else}}
       <h1>выберите чат</h1>
     {{/if}}
-      
     </div>
 `;

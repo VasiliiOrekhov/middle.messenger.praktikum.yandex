@@ -2,7 +2,7 @@ import Block from '../../utils/Block';
 import { tmpl } from './friendMessage.tmpl';
 import './friendMessage.scss';
 
-type FriendMessageProps = { text: string };
+type FriendMessageProps = { content: string };
 
 export class FriendMessage extends Block {
   constructor(props: FriendMessageProps) {

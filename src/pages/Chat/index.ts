@@ -56,11 +56,7 @@ export class BaseChat extends Block {
       .getState()
       .chats!.map(props => new OneChat({ ...props, selectChat: this.selectChat.bind(this) }));
 
-    this.children.selectChat = new SelectChat({
-      id: this.props.selectedChatId,
-      data: Object.values(this.props).find(el => (el as IGetChat)?.id === this.props.selectedChatId) as IGetChat,
-      deleteChat: this.selectChat.bind(this),
-    });
+    this.children.selectChat = new SelectChat({});
 
     return true;
   }

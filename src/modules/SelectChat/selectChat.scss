@@ -38,6 +38,7 @@
   .chat {
     height: calc(100% - 108px);
     padding-top: 40px;
+    overflow-y: scroll;
 
     .friendMessage {
       max-width: 402px;

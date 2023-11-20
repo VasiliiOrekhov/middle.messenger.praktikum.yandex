@@ -3,6 +3,7 @@ import Block from '../../utils/Block';
 import './oneChat.scss';
 import { IGetChat } from '../../api/ChatsApi';
 import { RESOURCES_URL } from '../constants';
+import { store } from '../../utils/Store';
 
 type OneChatProps = IGetChat & {
   selectChat: (id: number) => void;
@@ -13,6 +14,7 @@ export class OneChat extends Block {
       ...props,
       events: {
         click: () => {
+          store.set('selectedChatId', this.props.id);
           props.selectChat(this.props.id);
         },
       },

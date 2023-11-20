@@ -8,7 +8,8 @@ import { setter } from './setter';
 export interface State {
   user?: IUser;
   chats?: IGetChat[];
-  messages?: IMessage[];
+  messages?: Record<number, IMessage[]>;
+  selectedChatId?: number | undefined;
 }
 
 enum StorageEvent {
