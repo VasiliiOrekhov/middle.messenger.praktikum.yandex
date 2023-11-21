@@ -7,27 +7,11 @@ import { InputOnly } from '../../components/InputOnly';
 import { MyMessage } from '../../components/MyMessage';
 import { PopupDeleteUser } from '../PopupDeleteUser';
 import ChatsController from '../../controllers/ChatsController';
-import MessageController from '../../controllers/MessageController';
+import MessageController, { IMessage } from '../../controllers/MessageController';
 import { RESOURCES_URL } from '../../components/constants';
 import { State, store, withStore } from '../../utils/Store';
 import { FriendMessage } from '../../components/FriendMessage';
 
-export type IMessage = {
-  chat_id: number;
-  time: string;
-  type: string;
-  user_id: number;
-  content: string;
-  file?: {
-    id: number;
-    user_id: number;
-    path: string;
-    filename: string;
-    content_type: string;
-    content_size: number;
-    upload_date: string;
-  };
-};
 interface MessengerProps {
   selectedChat: number | undefined;
   messages: IMessage[];

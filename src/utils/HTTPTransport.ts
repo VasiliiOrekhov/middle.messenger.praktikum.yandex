@@ -8,8 +8,7 @@ export enum Method {
 
 type Options = {
   method: Method;
-  // eslint-disable-next-line
-  data?: any;
+  data?: unknown;
 };
 
 export class HTTPTransport {
