@@ -1,13 +1,16 @@
 export const tmpl = `
   <div class='changeProfilePage'>
+   {{{popup}}}
     <div class='leftsideModule'>
-      {{{ChatPageLeftLink}}}
+      {{{profilePageButton}}}
     </div>
     <div class='basicContainer'>
-      <input type="file" id="fileInput"  class='inputImg' name='avatar' >
-      <label for="fileInput">
-        <img  class='profileImg' src={{imgSrc}} alt="Choose File">
-      </label>
+      <div class='imgContainer'>
+        
+          <img  class='profileImg' src={{imgSrc}} alt="IMG">
+          {{{imgButton}}}
+        
+      </div>
       <form class='changeProfile_form'>
         {{#each profileFields}}
           {{{this}}}

@@ -8,7 +8,7 @@ export const tmpl = `
     </form>
     <div class='buttotContainer'>
         {{{button}}}
-        {{{link}}}
+        {{{linkButton}}}
     </div>
 </div>
 `;

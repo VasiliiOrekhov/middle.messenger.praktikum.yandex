@@ -3,10 +3,19 @@ import { registrationInput } from '../../components/constants';
 import { tmpl } from './singin.tmpl';
 import './singin.scss';
 import Block from '../../utils/Block';
+import AuthController from '../../controllers/AuthController';
+import { ISignInData, ISignUpData } from '../../api/AuthApi';
+import { Routes } from '../../../main';
+import ChatsController from '../../controllers/ChatsController';
 
 export class Singin extends Block {
   constructor() {
-    super('div', {});
+    super({});
+  }
+
+  async fetch(data: ISignUpData) {
+    await AuthController.signup(data);
+    await ChatsController.getChats();
   }
 
   init() {
@@ -14,7 +23,8 @@ export class Singin extends Block {
       title: 'Регистрация',
       inputsArr: registrationInput,
       buttonText: 'Зарегистрироваться',
-      link: { to: '/login', text: 'Войти' },
+      link: { to: Routes.LoginRoute, text: 'Войти' },
+      fetch: this.fetch as (data: ISignUpData | ISignInData) => void,
     });
   }
 

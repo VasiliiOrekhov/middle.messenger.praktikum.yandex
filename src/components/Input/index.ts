@@ -15,7 +15,7 @@ export class Input extends Block {
   inputParam: { name: string; elementVal: string; isValid: boolean };
 
   constructor(props: InputProps) {
-    super('div', props);
+    super(props);
     this.inputParam = {
       name: this.props.name,
       elementVal: this.element!.querySelector('input')!.value,

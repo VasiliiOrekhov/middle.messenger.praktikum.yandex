@@ -9,7 +9,7 @@ export type LinkProps = {
 
 export class Link extends Block {
   constructor(props: LinkProps) {
-    super('a', props);
+    super(props);
   }
 
   render() {

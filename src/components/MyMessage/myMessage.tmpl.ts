@@ -1,1 +1,1 @@
-export const tmpl = "<div class='myMessage'>{{text}}</div>";
+export const tmpl = "<div class='myMessage'>{{content}}</div>";

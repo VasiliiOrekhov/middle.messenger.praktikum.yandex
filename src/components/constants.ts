@@ -130,13 +130,4 @@ export const changePasswordFieldValues = [
   },
 ];
 
-export const paths = {
-  login: '/login',
-  registration: '/registration',
-  chat: '/chat',
-  profile: '/profile',
-  changeprofile: '/changeprofile',
-  changepassword: '/changepassword',
-  noPath: '*',
-  fix: '/fix',
-};
+export const RESOURCES_URL = 'https://ya-praktikum.tech/api/v2/resources';

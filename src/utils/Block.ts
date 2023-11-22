@@ -2,10 +2,11 @@ import Handlebars from 'handlebars';
 import { nanoid } from 'nanoid';
 
 import { EventBus } from './EventBus';
+import { isEqual } from './IsEqual';
 
 // Нельзя создавать экземпляр данного класса
 // eslint-disable-next-line
-abstract class Block<P extends Record<string, any> = any> {
+class Block<P extends Record<string, any> = any> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -24,23 +25,16 @@ abstract class Block<P extends Record<string, any> = any> {
 
   private _element: HTMLElement | null = null;
 
-  private _meta: { tagName: string; props: P };
-
   /** JSDoc
    * @param {string} tagName
    * @param {Object} props
    *
    * @returns {void}
    */
-  constructor(tagName = 'div', propsWithChildren: P) {
+  constructor(propsWithChildren: P) {
     const eventBus = new EventBus();
 
     const { props, children } = this._getChildrenAndProps(propsWithChildren);
-
-    this._meta = {
-      tagName,
-      props: props as P,
-    };
 
     this.children = children;
     this.props = this._makePropsProxy(props);
@@ -69,6 +63,7 @@ abstract class Block<P extends Record<string, any> = any> {
 
   _addEvents() {
     const { events = {} } = this.props as P & { events: Record<string, () => void> };
+
     Object.keys(events).forEach(eventName => {
       this._element?.addEventListener(eventName, events[eventName]);
     });
@@ -88,14 +83,7 @@ abstract class Block<P extends Record<string, any> = any> {
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
-  _createResources() {
-    const { tagName } = this._meta;
-    this._element = this._createDocumentElement(tagName);
-  }
-
   private _init() {
-    this._createResources();
-
     this.init();
 
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
@@ -103,16 +91,22 @@ abstract class Block<P extends Record<string, any> = any> {
 
   protected init() {}
 
-  _componentDidMount() {
-    this.componentDidMount();
+  async _componentDidMount() {
+    await this.componentDidMount();
   }
 
-  protected componentDidMount() {}
+  async componentDidMount() {}
 
   public dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
 
-    // Object.values(this.children).forEach((child) => child.dispatchComponentDidMount());
+    Object.values(this.children).forEach(child => {
+      if (Array.isArray(child)) {
+        child.forEach(ch => ch.dispatchComponentDidMount());
+      } else {
+        child.dispatchComponentDidMount();
+      }
+    });
   }
 
   private _componentDidUpdate() {
@@ -126,13 +120,12 @@ abstract class Block<P extends Record<string, any> = any> {
   }
 
   setProps = (nextProps: P) => {
-    // TODO СРАВНЕНИЕ ПРОПС
     if (!nextProps) {
       return;
     }
-    const newProps = { ...this.props, ...nextProps };
-
-    Object.assign(this.props, newProps);
+    if (!isEqual(this.props, { ...this.props, ...nextProps })) {
+      Object.assign(this.props, nextProps);
+    }
   };
 
   get element() {
@@ -142,11 +135,13 @@ abstract class Block<P extends Record<string, any> = any> {
   private _render() {
     const fragment = this.render();
 
-    this._removeEvents();
+    const newElement = fragment.firstElementChild as HTMLElement;
 
-    this._element!.innerHTML = '';
+    if (this._element && newElement) {
+      this._element.replaceWith(newElement);
+    }
 
-    this._element!.append(fragment);
+    this._element = newElement;
 
     this._addEvents();
   }

@@ -7,6 +7,7 @@ const validRules = {
   phone: '^[0-9+][0-9]{9,14}$',
   display_name: '^[А-ЯA-Z][а-яА-ЯёЁa-zA-Z-]+$',
   message: '[^s]',
+  number: '/^d+$/',
   default: '[^s]',
 };
 
@@ -18,6 +19,7 @@ const errorText = {
   phone: '10-15 символов, состоит из цифр, может начинается с плюса',
   displayName: 'Первая буква должна быть заглавной, без пробелов и без цифр, нет спецсимволов',
   message: 'Не должно быть пустым',
+  number: 'Должны быть только цифры',
   default: 'Не должно быть пустым',
 };
 
@@ -49,6 +51,8 @@ function valueForReg(inputName: string): { error: string; rules: string } {
       return { error: errorText.displayName, rules: validRules.display_name };
     case 'message':
       return { error: errorText.message, rules: validRules.message };
+    case 'addUser':
+      return { error: errorText.number, rules: validRules.number };
     default:
       return { error: errorText.default, rules: validRules.default };
   }

@@ -4,12 +4,12 @@ import Block from '../../utils/Block';
 import './myMessage.scss';
 
 type MyMessageProps = {
-  text: string;
+  content: string;
 };
 
 export class MyMessage extends Block {
   constructor(props: MyMessageProps) {
-    super('div', props);
+    super(props);
   }
 
   render() {

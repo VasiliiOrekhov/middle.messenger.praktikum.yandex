@@ -1,22 +1,30 @@
-import { paths, changePasswordFieldValues } from '../../components/constants';
-import { Link } from '../../components/Link';
-import { ChangeProfileField } from '../../components/ChangeProfileField';
+import { changePasswordFieldValues, RESOURCES_URL } from '../../components/constants';
 import { tmpl } from '../ChangeProfile/changeProfile.tmpl';
 import '../ChangeProfile/changeProfile.scss';
 import Block from '../../utils/Block';
 import { Button } from '../../components/Button';
 import { validator } from '../../utils/Validator';
+import UsersController from '../../controllers/UsersController';
+import { IChangePasswordData } from '../../api/UsersApi';
+import Router from '../../utils/Router';
+import { Routes } from '../../../main';
+import { store } from '../../utils/Store';
+import { ChangePasswordField } from '../../components/ChangePasswordField';
 
 export class ChangePassword extends Block {
   constructor() {
-    super('div', { imgSrc: '/vite.svg' });
+    super({});
   }
 
   formValid() {
+    let validAll = true;
     const formResult: Record<string, string> = {};
-    (this.children.profileFields as ChangeProfileField[]).forEach(el => {
+    (this.children.profileFields as ChangePasswordField[]).forEach(el => {
       if (!el.inputParam.isValid) {
-        const { errorText } = validator(el.inputParam.name, el.inputParam.elementVal);
+        const { errorText, isValid } = validator(el.inputParam.name, el.inputParam.elementVal);
+        if (!isValid) {
+          validAll = false;
+        }
         const copyEl = el;
         copyEl.element!.querySelector('.errorText')!.textContent = errorText;
       }
@@ -24,7 +32,9 @@ export class ChangePassword extends Block {
         formResult[el.inputParam.name] = el.inputParam.elementVal;
       }
     });
-    console.log(formResult);
+    if (validAll) {
+      UsersController.changePassword(formResult as IChangePasswordData);
+    }
   }
 
   init() {
@@ -37,11 +47,23 @@ export class ChangePassword extends Block {
       },
     });
 
-    this.children.ChatPageLeftLink = new Link({ to: paths.profile, text: '<' });
-    this.children.profileFields = changePasswordFieldValues.map(field => new ChangeProfileField(field));
+    this.children.profileFields = changePasswordFieldValues.map(field => new ChangePasswordField(field));
+    this.children.profilePageButton = new Button({
+      text: '<',
+      events: {
+        click: () => {
+          Router.go(Routes.ProfileRoure);
+        },
+      },
+    });
   }
 
   render() {
-    return this.compile(tmpl, { imgSrc: '/vite.svg' });
+    return this.compile(tmpl, {
+      imgSrc: store.getState().user?.avatar
+        ? `
+        ${RESOURCES_URL}/${store.getState().user!.avatar}`
+        : '',
+    });
   }
 }

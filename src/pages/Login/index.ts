@@ -1,12 +1,21 @@
 import { Form } from '../../modules/Form';
-import { loginInput, paths } from '../../components/constants';
+import { loginInput } from '../../components/constants';
 import { tmpl } from './login.tmpl';
 import './login.scss';
 import Block from '../../utils/Block';
+import AuthController from '../../controllers/AuthController';
+import { ISignInData } from '../../api/AuthApi';
+import { Routes } from '../../../main';
+import ChatsController from '../../controllers/ChatsController';
 
 export class Login extends Block {
   constructor() {
-    super('div', {});
+    super({});
+  }
+
+  async fetch(data: ISignInData) {
+    await AuthController.signin(data);
+    await ChatsController.getChats();
   }
 
   init() {
@@ -14,7 +23,8 @@ export class Login extends Block {
       title: 'Вход',
       inputsArr: loginInput,
       buttonText: 'Авторизоваться',
-      link: { to: paths.registration, text: 'Нет аккаунта?' },
+      link: { to: Routes.RegistrationRoure, text: 'Нет аккаунта?' },
+      fetch: this.fetch,
     });
   }
 

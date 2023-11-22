@@ -1,58 +1,73 @@
+import { IGetChat } from '../../api/ChatsApi';
+import { PopupCreateChat } from '../../modules/PopupCreateChat/index';
 import { OneChat } from '../../components/OneChat';
-import { MyMessage } from '../../components/MyMessage';
-import { FriendMessage } from '../../components/FriendMessage';
 import Block from '../../utils/Block';
 import { tmpl } from './chat.tmpl';
 import './chat.scss';
+import { State, store, withStore } from '../../utils/Store';
+import { SelectChat } from '../../modules/SelectChat';
+import Router from '../../utils/Router';
 import { Button } from '../../components/Button';
-import { InputOnly } from '../../components/InputOnly';
+import { Routes } from '../../../main';
 
-const testChatList = [
-  {
-    imgSrc: '/vite.svg',
-    name: 'Anna',
-    text: 'test message',
-    time: '13:58',
-    counter: 5,
-  },
-  {
-    imgSrc: '/vite.svg',
-    name: 'Anna',
-    text: 'test message',
-    time: '13:58',
-    counter: 5,
-  },
-];
-
-export class Chat extends Block {
+export class BaseChat extends Block {
   constructor() {
-    super('div', { selectedChat_imgSrc: '/vite.svg', selectedChat_name: 'Anna' });
+    super({});
   }
 
-  init() {
-    this.children.chatList = testChatList.map(props => new OneChat(props));
-    this.children.button = new Button({
-      text: 'Отправить',
+  selectChat(id: number) {
+    this.setProps({ selectedChatId: id });
+  }
+
+  createChat() {
+    document.querySelector('.popup_createChat')!.classList.add('popup_open');
+  }
+
+  async init() {
+    this.children.createChatButton = new Button({
+      text: 'Создать чат',
       events: {
-        click: e => {
-          e.preventDefault();
-          console.log({ message: (this.children.input as InputOnly).inputParam.elementVal });
+        click: () => {
+          document.querySelector('.popup_createChat')!.classList.add('popup_open');
         },
       },
     });
-    this.children.input = new InputOnly({
-      name: 'message',
+    this.children.toProfileButton = new Button({
+      text: 'Профиль',
       events: {
-        blur() {},
+        click: () => {
+          Router.go(Routes.ProfileRoure);
+        },
       },
     });
-    this.children.firstMessage = new MyMessage({ text: 'Сообщение 1' });
-    this.children.secondMessage = new FriendMessage({ text: 'Сообщение 2' });
-    this.children.thirdMessage = new MyMessage({ text: 'Сообщение 3' });
-    this.children.fourMessage = new FriendMessage({ text: 'Сообщение 4' });
+    this.children.chatList =
+      store.getState().chats?.map(props => new OneChat({ ...props, selectChat: this.selectChat.bind(this) })) || [];
+
+    this.children.popupCreateChat = new PopupCreateChat();
+    this.children.selectChat = new SelectChat({
+      id: 0,
+      data: Object.values(this.props).find(el => (el as IGetChat)?.id === this.props.selectedChatId) as IGetChat,
+      deleteChat: this.selectChat.bind(this),
+    });
+  }
+
+  protected componentDidUpdate(): boolean {
+    this.children.chatList = store
+      .getState()
+      .chats!.map(props => new OneChat({ ...props, selectChat: this.selectChat.bind(this) }));
+
+    this.children.selectChat = new SelectChat({});
+
+    return true;
   }
 
   render() {
-    return this.compile(tmpl, { selectedChat_imgSrc: '/vite.svg' });
+    return this.compile(tmpl, { ...this.props, create: this.createChat });
   }
 }
+
+function mapStateToProps(state: State) {
+  return { ...state.chats };
+}
+
+export const Chat = withStore(mapStateToProps)(BaseChat);
