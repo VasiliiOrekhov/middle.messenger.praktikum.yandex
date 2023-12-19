@@ -8,8 +8,15 @@ export enum Method {
 
 type Options = {
   method: Method;
-  data?: unknown;
+  // eslint-disable-next-line
+  data?: any;
 };
+
+export function queryStringify(data: Record<string, string>): string {
+  return `?${Object.keys(data)
+    .map(key => `${key}=${data[key]}`)
+    .join('&')}`;
+}
 
 export class HTTPTransport {
   static API_URL = 'https://ya-praktikum.tech/api/v2';
@@ -59,7 +66,13 @@ export class HTTPTransport {
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.open(method, url);
+
+      let link = url || '';
+      if (method === Method.Get && data) {
+        link += queryStringify(data);
+      }
+
+      xhr.open(method, link);
 
       xhr.onreadystatechange = () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
