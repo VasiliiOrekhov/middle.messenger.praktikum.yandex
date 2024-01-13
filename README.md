@@ -7,6 +7,8 @@
 
 **Client:** Html, Sсss, Typescript
 **Server:** Node, Express
+**Tests:** Chai, Mocha, Sinon
+
 
 ## Run Locally
 
@@ -44,6 +46,12 @@ Run stylelint:
 
 ```bash
   npm run stylelint
+```
+
+Run test:
+
+```bash
+  npm run test
 ```
 
 ## Demo
